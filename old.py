@@ -3,11 +3,18 @@
 # Retrieved 2026-01-01, License - CC BY-SA 4.0
 
 # coding=utf-8
+from flask import Flask
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from PIL import Image
 import cv2
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
 
 def screenshot():
     # please note that we MUST use headless mode
@@ -60,8 +67,8 @@ def convert_binary():
     cv2.imshow("Binary", bw_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    screenshot()
-    convert_greyscale()
-    convert_binary()
+#
+# if __name__ == "__main__":
+#     screenshot()
+#     convert_greyscale()
+#     convert_binary()
