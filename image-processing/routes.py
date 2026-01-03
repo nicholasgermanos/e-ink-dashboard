@@ -1,0 +1,320 @@
+@app.route("/0")
+def fetch_0():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 0
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/1")
+def fetch_1():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 1
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/2")
+def fetch_2():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 2
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/3")
+def fetch_3():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 3
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/4")
+def fetch_4():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 4
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/5")
+def fetch_5():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 5
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/6")
+def fetch_6():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 6
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/7")
+def fetch_7():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 7
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/8")
+def fetch_8():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 8
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/9")
+def fetch_9():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 9
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/10")
+def fetch_10():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 10
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/11")
+def fetch_11():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 11
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/12")
+def fetch_12():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 12
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/13")
+def fetch_13():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 13
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/14")
+def fetch_14():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 14
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/15")
+def fetch_15():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 15
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/16")
+def fetch_16():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 16
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/17")
+def fetch_17():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 17
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/18")
+def fetch_18():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 18
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/19")
+def fetch_19():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 19
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/20")
+def fetch_20():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 20
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/21")
+def fetch_21():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 21
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/22")
+def fetch_22():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 22
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/23")
+def fetch_23():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 23
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/24")
+def fetch_24():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 24
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/25")
+def fetch_25():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 25
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/26")
+def fetch_26():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 26
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/27")
+def fetch_27():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 27
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/28")
+def fetch_28():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 28
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/29")
+def fetch_29():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 29
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/30")
+def fetch_30():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 30
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/31")
+def fetch_31():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 31
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/32")
+def fetch_32():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 32
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/33")
+def fetch_33():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 33
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/34")
+def fetch_34():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 34
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/35")
+def fetch_35():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 35
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/36")
+def fetch_36():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 36
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/37")
+def fetch_37():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 37
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/38")
+def fetch_38():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 38
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
+@app.route("/39")
+def fetch_39():
+	file = open("output.txt", "r")
+	content = file.read()
+	start_index = MAX_CHUNK_SIZE * 39
+	end_index = start_index + MAX_CHUNK_SIZE
+	return content[int(start_index):int(end_index)]
+
