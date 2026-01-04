@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.options import Options
 from PIL import Image
 import cv2
 import subprocess
+import numpy as np
 
 DISPLAY_HEIGHT = 984
 DISPLAY_WIDTH = 1304
@@ -38,15 +39,31 @@ def screenshot():
     driver.quit()
 
 def convert_greyscale():
-    img = Image.open('screenshot.png').convert(mode='L', dither=Image.Dither.FLOYDSTEINBERG)
-    img.save('greyscale.png')
+    img = Image.open('red.jpg').convert(mode='L')
+    img.save('xscale.png')
 
-    # subprocess.run(["magick", "greyscale.png", "-remap", "palette.gif", "dithered.png"])
+    #subprocess.run(["magick", "red.jpg", "-remap", "palette.gif", "dithered.png"])
+
+def convert_redscale():
+    img = Image.open("red.jpg")
+    out = Image.new("I", img.size, 0xffffff)
+
+    width, height = img.size
+
+    for x in range(width):
+        for y in range(height):
+            r,g,b = img.getpixel((x,y))
+            if r > 50:
+                print(r, " ", g, " ", b)
+                out.putpixel((x,y), 0)
+
+    out.save('xscale.png')
+
 
 def convert_binary():
 
     # read the image file
-    img = cv2.imread('greyscale.png', 0)
+    img = cv2.imread('xscale.png', 0)
 
     height, width = img.shape
 
@@ -56,15 +73,16 @@ def convert_binary():
     bw = cv2.threshold(img, 230, 255, cv2.THRESH_BINARY)
 
     # print(type(bw[1]))
-    bw[1].tofile("output.txt")
     with open("output.txt", "r+") as file:
         file.truncate(0)
         for x in bw[1]:
             for y in x:
                 raw = int(y)
+                if raw != 0:
+                    print(raw)
                 out = 1 if raw == 255 else 0
                 file.write(f"{out}")
-
+    #
     # cv2.imshow("Binary", bw_img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
@@ -78,6 +96,11 @@ app = Flask(__name__)
 def generate():
     screenshot()
     convert_greyscale() 
+    return str(convert_binary())
+
+@app.route("/generatered")
+def generatered():
+    convert_redscale() 
     return str(convert_binary())
 
 @app.route("/0")
@@ -591,5 +614,4 @@ def fetch_63():
 	start_index = MAX_CHUNK_SIZE * 63
 	end_index = start_index + MAX_CHUNK_SIZE
 	return content[int(start_index):int(end_index)]
-
 
