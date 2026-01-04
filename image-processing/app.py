@@ -29,7 +29,8 @@ def screenshot():
 
     driver = webdriver.Chrome(options=chrome_options)
 
-    driver.get("http://127.0.0.1:8000/")
+    #driver.get("http://127.0.0.1:8000/")
+    driver.get("https://www.dafont.com/bitmap.php")
     time.sleep(2)
 
     driver.set_window_size(DISPLAY_WIDTH, DISPLAY_HEIGHT)
@@ -39,13 +40,7 @@ def screenshot():
     driver.quit()
 
 def convert_greyscale():
-    img = Image.open('red.jpg').convert(mode='L')
-    img.save('xscale.png')
-
-    #subprocess.run(["magick", "red.jpg", "-remap", "palette.gif", "dithered.png"])
-
-def convert_redscale():
-    img = Image.open("red.jpg")
+    img = Image.open('screenshot.png')
     out = Image.new("I", img.size, 0xffffff)
 
     width, height = img.size
@@ -53,8 +48,22 @@ def convert_redscale():
     for x in range(width):
         for y in range(height):
             r,g,b = img.getpixel((x,y))
-            if r > 50:
-                print(r, " ", g, " ", b)
+            if r == b == g and r < 250:
+                out.putpixel((x,y), 0)
+
+    out.save('xscale.png')
+    #subprocess.run(["magick", "red.jpg", "-remap", "palette.gif", "dithered.png"])
+
+def convert_redscale():
+    img = Image.open("screenshot.png")
+    out = Image.new("I", img.size, 0xffffff)
+
+    width, height = img.size
+
+    for x in range(width):
+        for y in range(height):
+            r,g,b = img.getpixel((x,y))
+            if r > 200 and g < 230 and b < 230 and not (r == b == g):
                 out.putpixel((x,y), 0)
 
     out.save('xscale.png')
@@ -78,8 +87,6 @@ def convert_binary():
         for x in bw[1]:
             for y in x:
                 raw = int(y)
-                if raw != 0:
-                    print(raw)
                 out = 1 if raw == 255 else 0
                 file.write(f"{out}")
     #
