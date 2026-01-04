@@ -28,7 +28,7 @@ def screenshot():
 
     driver = webdriver.Chrome(options=chrome_options)
 
-    driver.get("https://askubuntu.com/questions/591733/rotate-images-from-terminal")
+    driver.get("http://127.0.0.1:8000/")
     time.sleep(2)
 
     driver.set_window_size(DISPLAY_WIDTH, DISPLAY_HEIGHT)
