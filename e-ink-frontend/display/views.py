@@ -6,11 +6,20 @@ def current_weather():
     city = "Bardia"
     url = "https://wttr.in/" + city + "?format=j1"
 
-    response = requests.get(url)
-    response.raise_for_status()
+    # response = requests.get(url)
+    # response.raise_for_status()
 
-    data = response.json()
-    current = data['current_condition'][0]
+    # data = response.json()
+
+    data = {}
+    current_condition = {}
+    current_condition['temp_C'] = "19"
+    current_condition['FeelsLikeC'] = "19"
+    data["current_condition"] = current_condition
+
+    # current = data['current_condition'][0]
+    current = data['current_condition']
+
     return current
 
 def index(request):

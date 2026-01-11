@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 {% load tailwind_cli static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <title>Life Dashboard</title>
-    {% tailwind_css %}
-</head>
-<body class="bg-white-50 p-4 w-[1304px] h-[984px] border border-black">
-	<div class="grid grid-cols-2 h-7/100 text-4xl font-bold">
-		<div class="">
-			<h1>Happy {{day}}</h1><h2 class="w-fit">{{ date }}</h2>
-		</div>
-		<div class="justify-self-end">
-			<h1>{{ current_temp }}<span>°</span></h1>
-			<h1>Feels like {{ feels_like_temp }}<span>°</span></h1>
-		</div>
-	</div>
-	<div class="grid grid-cols-2 h-93/100">
-		<div class="container mx-auto border border-black">
-			<h1 class="text-4xl font-bold mb-8">Calendar</h1>
-		</div>
-		<div class="container mx-auto border border-black">
-			<h1 class="text-4xl font-bold mb-8">Photo</h1>
-		</div>
-		<div class="container mx-auto border border-black">
-			<h1 class="text-4xl font-bold mb-8">Weather</h1>
-		</div>
-		<div class="container mx-auto border border-black">
-			<h1 class="text-4xl font-bold mb-8">Shopping List</h1>
-		</div>
-	</div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <title>Life Dashboard</title>
+        {% tailwind_css %}
+    </head>
+    <body class="bg-white-50 w-[1304px] h-[984px] border border-black">
+        <!-- Top of screen -->
+        <div class="grid grid-cols-3 h-7/100 text-4xl font-bold font-magic">
+            <div class="w-100 flex items-center">
+                <span class="w-100 pl-4">Happy {{ day }}</span>
+            </div>
+            <div class="w-100 flex items-center justify-center">
+                <span class="w-fit">{{ date }}</span>
+            </div>
+            <div class="w-100 text-2xl flex-row">
+                <div class="w-100 w-fit justify-self-end">
+                    <span class="">{{ current_temp }}<span>°</span></span>
+                </div>
+                <div class="w-100 w-fit justify-self-end">
+                    <span class="">Feels like {{ feels_like_temp }}<span>°</span></span>
+                </div>
+            </div>
+        </div>
+        <!-- Grid -->
+        <div class="grid grid-cols-2 h-93/100">
+            <div class="container mx-auto border border-black">
+                <span class="text-4xl font-bold mb-8">Calendar</span>
+            </div>
+            <div class="container mx-auto border border-black">
+                <span class="text-4xl font-bold mb-8">Photo</span>
+            </div>
+            <div class="container mx-auto border border-black">
+                <span class="text-4xl font-bold mb-8">Weather</span>
+            </div>
+            <div class="container mx-auto border border-black">
+                <span class="text-4xl font-bold mb-8">Shopping List</span>
+            </div>
+        </div>
+    </body>
 </html>
