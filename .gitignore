@@ -1,3 +1,4 @@
 .idea
 tags
-
+__pycache__
+.django_tailwind_cli

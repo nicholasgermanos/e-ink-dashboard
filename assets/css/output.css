@@ -884,9 +884,6 @@
   .min-h-screen {
     min-height: 100vh;
   }
-  .w-100 {
-    width: calc(var(--spacing) * 100);
-  }
   .w-\[100px\] {
     width: 100px;
   }
@@ -901,9 +898,6 @@
   }
   .w-full {
     width: 100%;
-  }
-  .w-min {
-    width: min-content;
   }
   .w-screen {
     width: 100vw;

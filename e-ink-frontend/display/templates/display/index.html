@@ -11,10 +11,11 @@
 <body class="bg-white-50 p-4 w-[1304px] h-[984px] border border-black">
 	<div class="grid grid-cols-2 h-7/100 text-4xl font-bold">
 		<div class="">
-			<h1>Happy {{day}}</h1>
+			<h1>Happy {{day}}</h1><h2 class="w-fit">{{ date }}</h2>
 		</div>
-		<div class="flex-row w-fit items-end">
-			<h1 class="w-fit">Happy {{day}}</h1>
+		<div class="justify-self-end">
+			<h1>{{ current_temp }}<span>°</span></h1>
+			<h1>Feels like {{ feels_like_temp }}<span>°</span></h1>
 		</div>
 	</div>
 	<div class="grid grid-cols-2 h-93/100">
