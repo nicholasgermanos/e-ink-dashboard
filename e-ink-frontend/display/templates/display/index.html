@@ -10,22 +10,26 @@
     </head>
     <body class="bg-white-50 w-[1304px] h-[984px] border border-black">
         <!-- Top of screen -->
-        <div class="grid grid-cols-3 h-7/100 text-4xl font-bold font-magic">
-            <div class="w-100 flex items-center">
-                <span class="w-100 pl-4">Happy {{ day }}</span>
-            </div>
-            <div class="w-100 flex items-center justify-center">
-                <span class="w-fit">{{ date }}</span>
-            </div>
-            <div class="w-100 text-2xl flex-row">
-                <div class="w-100 w-fit justify-self-end">
-                    <span class="">{{ current_temp }}<span>°</span></span>
-                </div>
-                <div class="w-100 w-fit justify-self-end">
-                    <span class="">Feels like {{ feels_like_temp }}<span>°</span></span>
-                </div>
-            </div>
-        </div>
+        <table class="w-[1304px] h-7/100 text-3xl table-fixed font-[magic]">
+            <tbody>
+                <tr>
+                    <td>{{ date }}</td>
+                    <td class="text-center">{{ day }}</td>
+                    <td class="text-right flex justify-end">
+                        <table class="">
+                            <tbody>
+                                <tr>
+                                    <td>{{ current_temp }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Feels like {{ feels_like_temp }}</td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
         <!-- Grid -->
         <div class="grid grid-cols-2 h-93/100">
             <div class="container mx-auto border border-black">
