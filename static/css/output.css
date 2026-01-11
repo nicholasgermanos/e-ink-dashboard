@@ -3317,10 +3317,6 @@
     color: var(--foreground);
   }
 }
-.asdf {
-  color: green;
-  font-size: 40px;
-}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;

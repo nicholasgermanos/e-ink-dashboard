@@ -122,8 +122,3 @@
         @apply bg-background text-foreground;
     }
 }
-
-.asdf {
-    color: red;
-    font-size: 40px;
-}
