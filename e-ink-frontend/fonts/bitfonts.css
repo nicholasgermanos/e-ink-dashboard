@@ -2,3 +2,13 @@
 	font-family: 'magic';
 	src: url('../../static/fonts/magic/magic.ttf');
 }
+
+@font-face {
+	font-family: 'roboto-black';
+	src: url('../../static/fonts/roboto/Roboto-Black.ttf');
+}
+
+@font-face {
+	font-family: 'roboto-regular';
+	src: url('../../static/fonts/roboto/Roboto-Regular.ttf');
+}
