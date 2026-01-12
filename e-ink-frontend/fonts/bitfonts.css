@@ -1,14 +1,19 @@
 @font-face {
-	font-family: 'magic';
-	src: url('../../static/fonts/magic/magic.ttf');
+	font-family: 'alagard';
+	src: url('../../static/fonts/bitmap/alagard.ttf');
 }
 
 @font-face {
-	font-family: 'roboto-black';
-	src: url('../../static/fonts/roboto/Roboto-Black.ttf');
+	font-family: 'vcr';
+	src: url('../../static/fonts/bitmap/VCR.ttf');
 }
 
 @font-face {
-	font-family: 'roboto-regular';
-	src: url('../../static/fonts/roboto/Roboto-Regular.ttf');
+	font-family: 'vhs';
+	src: url('../../static/fonts/bitmap/easvhs.ttf');
+}
+
+@font-face {
+	font-family: 'ace';
+	src: url('../../static/fonts/bitmap/Ace-Attorney.ttf');
 }

@@ -2,15 +2,17 @@
 # Posted by lizisong1988, modified by community. See post 'Timeline' for change history
 # Retrieved 2026-01-01, License - CC BY-SA 4.0
 
+import base64
+import subprocess
+import time
+
+import cv2
+import numpy as np
 # coding=utf-8
 from flask import Flask
-import time
+from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from PIL import Image
-import cv2
-import subprocess
-import numpy as np
 
 DISPLAY_HEIGHT = 984
 DISPLAY_WIDTH = 1304
@@ -18,25 +20,25 @@ DISPLAY_WIDTH = 1304
 MAX_CHUNK_SIZE = DISPLAY_HEIGHT * DISPLAY_WIDTH / 64
 
 def screenshot():
-    print(str(MAX_CHUNK_SIZE))
-    print(str(MAX_CHUNK_SIZE * 63))
-    print(str(MAX_CHUNK_SIZE * 63 + MAX_CHUNK_SIZE))
+
     # please note that we MUST use headless mode
     # 1304*984
     chrome_options = Options()
     chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--start-maximized')
 
     driver = webdriver.Chrome(options=chrome_options)
+    driver.get("http://127.0.0.1:8000/")
 
-    #driver.get("http://127.0.0.1:8000/")
-    driver.get("https://www.dafont.com/bitmap.php")
-    time.sleep(2)
-
-    driver.set_window_size(DISPLAY_WIDTH, DISPLAY_HEIGHT)
+    screenshot = driver.execute_cdp_cmd('Page.captureScreenshot', {
+        'captureBeyondViewport': True,
+        'fromSurface': True
+    })
 
     time.sleep(2)
     driver.save_screenshot("screenshot.png")
+
+    with open("screenshot.png", "wb") as f:
+        f.write(base64.b64decode(screenshot['data']))
     driver.quit()
 
 def convert_greyscale():
