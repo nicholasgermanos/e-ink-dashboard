@@ -1,12 +1,31 @@
 import datetime
+import itertools
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
 import pytz
 import requests
+from bs4 import BeautifulSoup
 from django.shortcuts import render
 from icalevents.icalevents import events
 from icalevents.icalparser import parse_events
+
+
+def get_word_of_the_day():
+    today = datetime.today()
+    date = (
+        today.strftime("%Y") + "-" + today.strftime("%m") + "-" + today.strftime("%d")
+    )
+    response = requests.get("https://www.merriam-webster.com/word-of-the-day/" + date)
+    soup = BeautifulSoup(response.text)
+    description_div = soup.find_all("div", class_="wod-definition-container")
+    text = []
+
+    for div in itertools.islice(description_div[0].findChildren(), 4):
+        text.append(div.get_text().replace("// ", ""))
+
+    breakdown = {"description": text[1], "word": text[2], "quote": text[3]}
+    return breakdown
 
 
 def current_weather():
@@ -88,7 +107,6 @@ def get_ordinal(n):
 def index(request):
     context = {}
     # Date
-    wd = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     today = date.today()
     day = today.strftime("%A")
     day_number = today.strftime("%d") + get_ordinal(today.day)
@@ -103,5 +121,8 @@ def index(request):
 
     # Calendar
     context["events"] = get_ical()
+
+    # Word of the day
+    context["word_of_the_day"] = get_word_of_the_day()
 
     return render(request, "display/index.html", context)
