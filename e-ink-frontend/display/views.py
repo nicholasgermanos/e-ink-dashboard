@@ -8,7 +8,6 @@ import requests
 from bs4 import BeautifulSoup
 from django.shortcuts import render
 from icalevents.icalevents import events
-from icalevents.icalparser import parse_events
 
 
 def get_word_of_the_day():
@@ -19,12 +18,22 @@ def get_word_of_the_day():
     response = requests.get("https://www.merriam-webster.com/word-of-the-day/" + date)
     soup = BeautifulSoup(response.text)
     description_div = soup.find_all("div", class_="wod-definition-container")
-    text = []
+    word_container = soup.find_all("h2", class_="word-header-txt")
+    breakdown = {}
+    breakdown["word"] = word_container[0].get_text()
+    word = word_container[0].get_text()
 
     for div in itertools.islice(description_div[0].findChildren(), 4):
-        text.append(div.get_text().replace("// ", ""))
+        if div.name == "em":
+            continue
+        text = div.get_text()
+        if "// " in text:
+            breakdown["quote"] = text.replace("// ", "")
+        elif "See the entry >" in text:
+            break
+        elif "What It Means" not in text:
+            breakdown["description"] = text
 
-    breakdown = {"description": text[1], "word": text[2], "quote": text[3]}
     return breakdown
 
 
@@ -32,19 +41,13 @@ def current_weather():
     city = "Bardia"
     url = "https://wttr.in/" + city + "?format=j1"
 
-    # response = requests.get(url)
-    # response.raise_for_status()
+    response = requests.get(url)
+    response.raise_for_status()
 
-    # data = response.json()
+    data = response.json()
+    print(data)
 
-    data = {}
-    current_condition = {}
-    current_condition["temp_C"] = "19"
-    current_condition["FeelsLikeC"] = "19"
-    data["current_condition"] = current_condition
-
-    # current = data['current_condition'][0]
-    current = data["current_condition"]
+    current = data["current_condition"][0]
 
     return current
 
@@ -55,8 +58,6 @@ def get_ical():
     end = start + timedelta(days=7)
     my_tz = pytz.timezone("Australia/Sydney")
     es = events(url=ical_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
-    days = {}
-    formatted_events = {}
 
     events_dict = defaultdict(list)
 
@@ -69,7 +70,6 @@ def get_ical():
 
         event_date = event.start.date()
 
-        # Determine key
         if event_date == today:
             key = "Today"
         elif event_date == tomorrow:
@@ -77,7 +77,6 @@ def get_ical():
         else:
             key = event.start.strftime("%A")  # Day name
 
-        # Format event data
         event_data = {
             "summary": event.summary,
             "start_time": event.start.strftime("%H:%M") if event.start else None,
