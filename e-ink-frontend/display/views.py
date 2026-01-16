@@ -1,5 +1,5 @@
 import datetime
-import itertools
+import math
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
@@ -11,20 +11,16 @@ from icalevents.icalevents import events
 
 
 def get_word_of_the_day():
-    today = datetime.today()
-    date = (
-        today.strftime("%Y") + "-" + today.strftime("%m") + "-" + today.strftime("%d")
-    )
-    response = requests.get("https://www.merriam-webster.com/word-of-the-day/" + date)
+    response = requests.get("https://www.merriam-webster.com/word-of-the-day/")
     soup = BeautifulSoup(response.text)
     description_div = soup.find_all("div", class_="wod-definition-container")
     word_container = soup.find_all("h2", class_="word-header-txt")
     breakdown = {}
     breakdown["word"] = word_container[0].get_text()
-    word = word_container[0].get_text()
 
-    for div in itertools.islice(description_div[0].findChildren(), 4):
-        if div.name == "em":
+    for div in description_div[0].findChildren():
+        print(div)
+        if div.name != "p":
             continue
         text = div.get_text()
         if "// " in text:
@@ -38,17 +34,72 @@ def get_word_of_the_day():
 
 
 def current_weather():
-    city = "Bardia"
-    url = "https://wttr.in/" + city + "?format=j1"
-
+    url = "https://api.open-meteo.com/v1/forecast?latitude=-33.9776690401036&longitude=150.85373113387638&daily=uv_index_max,weather_code,rain_sum,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max&hourly=temperature_2m,weather_code,showers,rain&timezone=Australia%2FSydney&forecast_days=3"
     response = requests.get(url)
     response.raise_for_status()
-
     data = response.json()
 
-    current = data["current_condition"][0]
+    def get_weather_description(code):
+        descriptions = {
+            0: "Clear",
+            1: "Mostly Clear",
+            2: "Partly Cloudy",
+            3: "Overcast",
+            45: "Foggy",
+            48: "Foggy",
+            51: "Light Drizzle",
+            53: "Drizzle",
+            55: "Heavy Drizzle",
+            61: "Light Rain",
+            63: "Rain",
+            65: "Heavy Rain",
+            71: "Light Snow",
+            73: "Snow",
+            75: "Heavy Snow",
+            80: "Light Showers",
+            81: "Moderate Showers",
+            82: "Heavy Showers",
+            95: "Thunderstorm",
+            96: "Light Hail",
+            99: "Heavy Hail!",
+        }
+        return descriptions.get(code, "Unknown")
 
-    return current
+    periods = [
+        {"name": "Morning", "start": 5, "end": 11},
+        {"name": "Afternoon", "start": 11, "end": 17},
+        {"name": "Night", "start": 17, "end": 23},
+    ]
+
+    today_periods = []
+    for period in periods:
+        start_idx = period["start"]
+        end_idx = period["end"]
+        temps = data["hourly"]["temperature_2m"][start_idx:end_idx]
+        codes = data["hourly"]["weather_code"][start_idx:end_idx]
+
+        today_periods.append(
+            {
+                "name": period["name"],
+                "temp_avg": math.ceil(sum(temps) / len(temps)),
+                "condition": get_weather_description(max(set(codes), key=codes.count)),
+            }
+        )
+
+    weather = {
+        "daily": data["daily"],
+        "hourly": data["hourly"],
+        "today_periods": today_periods,
+        "tomorrow_temp_min": math.ceil(data["daily"]["temperature_2m_min"][1]),
+        "tomorrow_temp_max": math.ceil(data["daily"]["temperature_2m_max"][1]),
+        "tomorrow_condition": get_weather_description(data["daily"]["weather_code"][1]),
+        "next_day_temp_min": math.ceil(data["daily"]["temperature_2m_min"][2]),
+        "next_day_temp_max": math.ceil(data["daily"]["temperature_2m_max"][2]),
+        "next_day_condition": get_weather_description(data["daily"]["weather_code"][2]),
+        "next_day_name": (datetime.now() + timedelta(days=2)).date().strftime("%A"),
+    }
+
+    return weather
 
 
 def get_ical():
@@ -79,7 +130,7 @@ def get_ical():
         elif event_date == tomorrow:
             key = "Tomorrow"
         else:
-            key = event.start.strftime("%A")  # Day name
+            key = event.start.strftime("%A")
 
         start_time = event.start.strftime("%H:%M") if event.start else None
         end_time = event.end.strftime("%H:%M") if event.end else None
@@ -117,6 +168,7 @@ def get_ordinal(n):
 
 def index(request):
     context = {}
+
     # Date
     today = date.today()
     day = today.strftime("%A")
@@ -126,12 +178,7 @@ def index(request):
     context["month"] = today.strftime("%B")
 
     # Weather
-    # current = current_weather()
-
-    context["current_temp"] = "20"
-    # context["current_temp"] = current["temp_C"]
-    context["feels_like_temp"] = "19"
-    # context["feels_like_temp"] = current["FeelsLikeC"]
+    context["weather"] = current_weather()
 
     # Calendar
     context["events"] = get_ical()
