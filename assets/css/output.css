@@ -7,7 +7,6 @@
     'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-    --color-red-500: oklch(63.7% 0.237 25.331);
     --color-white: #fff;
     --spacing: 0.25rem;
     --text-base: 1rem;
@@ -18,10 +17,10 @@
     --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
-    --text-3xl: 1.875rem;
-    --text-3xl--line-height: calc(2.25 / 1.875);
     --text-4xl: 2.25rem;
     --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
     --font-weight-normal: 400;
     --radius-lg: 0.5rem;
     --default-font-family: var(--font-sans);
@@ -210,41 +209,26 @@
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
   }
-  .flex {
-    display: flex;
-  }
   .grid {
     display: grid;
-  }
-  .h-1\/3 {
-    height: calc(1/3 * 100%);
-  }
-  .h-2\/3 {
-    height: calc(2/3 * 100%);
-  }
-  .h-7\/100 {
-    height: calc(7/100 * 100%);
-  }
-  .h-93\/100 {
-    height: calc(93/100 * 100%);
   }
   .h-\[984px\] {
     height: 984px;
   }
-  .h-full {
-    height: 100%;
+  .max-h-\[500px\] {
+    max-height: 500px;
+  }
+  .max-h-full {
+    max-height: 100%;
   }
   .w-\[1304px\] {
     width: 1304px;
   }
-  .table-fixed {
-    table-layout: fixed;
+  .min-w-0 {
+    min-width: calc(var(--spacing) * 0);
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .justify-end {
-    justify-content: flex-end;
   }
   .space-y-3 {
     :where(& > :not(:last-child)) {
@@ -253,15 +237,34 @@
       margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
+  .overflow-hidden {
+    overflow: hidden;
+  }
   .rounded-lg {
     border-radius: var(--radius-lg);
+  }
+  .border-4 {
+    border-style: var(--tw-border-style);
+    border-width: 4px;
+  }
+  .border-8 {
+    border-style: var(--tw-border-style);
+    border-width: 8px;
   }
   .border-l-4 {
     border-left-style: var(--tw-border-style);
     border-left-width: 4px;
   }
-  .border-red-500 {
-    border-color: var(--color-red-500);
+  .border-dashed {
+    --tw-border-style: dashed;
+    border-style: dashed;
+  }
+  .border-solid {
+    --tw-border-style: solid;
+    border-style: solid;
+  }
+  .border-\[\#FF0000\] {
+    border-color: #FF0000;
   }
   .bg-white {
     background-color: var(--color-white);
@@ -275,8 +278,11 @@
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
-  .pr-4 {
-    padding-right: calc(var(--spacing) * 4);
+  .pt-8 {
+    padding-top: calc(var(--spacing) * 8);
+  }
+  .pr-8 {
+    padding-right: calc(var(--spacing) * 8);
   }
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
@@ -284,29 +290,29 @@
   .pl-3 {
     padding-left: calc(var(--spacing) * 3);
   }
-  .text-center {
-    text-align: center;
+  .pl-8 {
+    padding-left: calc(var(--spacing) * 8);
   }
-  .text-right {
-    text-align: right;
+  .font-\[ari-bold\] {
+    font-family: ari-bold;
   }
-  .font-\[ace\] {
-    font-family: ace;
+  .font-\[ari-display\] {
+    font-family: ari-display;
   }
-  .font-\[alagard\] {
-    font-family: alagard;
+  .font-\[ari\] {
+    font-family: ari;
   }
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
-  .text-3xl {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
-  }
   .text-4xl {
     font-size: var(--text-4xl);
     line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
   .text-base {
     font-size: var(--text-base);
@@ -340,6 +346,26 @@
 @font-face {
   font-family: 'ace';
   src: url('../../static/fonts/bitmap/Ace-Attorney.ttf');
+}
+@font-face {
+  font-family: 'ari';
+  src: url('../../static/fonts/bitmap/ari/ari.ttf');
+}
+@font-face {
+  font-family: 'ari-condensed';
+  src: url('../../static/fonts/bitmap/ari/ari-condensed.ttf');
+}
+@font-face {
+  font-family: 'ari-condensed-display';
+  src: url('../../static/fonts/bitmap/ari/ari-condensed-display.ttf');
+}
+@font-face {
+  font-family: 'ari-display';
+  src: url('../../static/fonts/bitmap/ari/ari-display.ttf');
+}
+@font-face {
+  font-family: 'ari-bold';
+  src: url('../../static/fonts/bitmap/ari/ari-bold.ttf');
 }
 @property --tw-space-y-reverse {
   syntax: "*";

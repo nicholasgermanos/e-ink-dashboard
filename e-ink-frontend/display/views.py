@@ -45,7 +45,6 @@ def current_weather():
     response.raise_for_status()
 
     data = response.json()
-    print(data)
 
     current = data["current_condition"][0]
 
@@ -64,6 +63,11 @@ def get_ical():
     today = datetime.now().date()
     tomorrow = (datetime.now() + timedelta(days=1)).date()
 
+    def sort_by_day(e):
+        return e.start
+
+    es.sort(key=sort_by_day)
+
     for event in es:
         if not event.start:
             continue
@@ -77,10 +81,18 @@ def get_ical():
         else:
             key = event.start.strftime("%A")  # Day name
 
+        start_time = event.start.strftime("%H:%M") if event.start else None
+        end_time = event.end.strftime("%H:%M") if event.end else None
+        all_day = False
+
+        if event.start and event.end:
+            all_day = (event.end - event.start).total_seconds() / 60 == 1440
+
         event_data = {
             "summary": event.summary,
-            "start_time": event.start.strftime("%H:%M") if event.start else None,
-            "end_time": event.end.strftime("%H:%M") if event.end else None,
+            "start_time": start_time,
+            "end_time": end_time,
+            "all_day": all_day,
             "description": event.description,
             "location": event.location,
             "date": (
@@ -114,9 +126,12 @@ def index(request):
     context["month"] = today.strftime("%B")
 
     # Weather
-    current = current_weather()
-    context["current_temp"] = current["temp_C"]
-    context["feels_like_temp"] = current["FeelsLikeC"]
+    # current = current_weather()
+
+    context["current_temp"] = "20"
+    # context["current_temp"] = current["temp_C"]
+    context["feels_like_temp"] = "19"
+    # context["feels_like_temp"] = current["FeelsLikeC"]
 
     # Calendar
     context["events"] = get_ical()

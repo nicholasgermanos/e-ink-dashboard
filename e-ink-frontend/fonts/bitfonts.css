@@ -17,3 +17,28 @@
 	font-family: 'ace';
 	src: url('../../static/fonts/bitmap/Ace-Attorney.ttf');
 }
+
+@font-face {
+	font-family: 'ari';
+	src: url('../../static/fonts/bitmap/ari/ari.ttf');
+}
+
+@font-face {
+	font-family: 'ari-condensed';
+	src: url('../../static/fonts/bitmap/ari/ari-condensed.ttf');
+}
+
+@font-face {
+	font-family: 'ari-condensed-display';
+	src: url('../../static/fonts/bitmap/ari/ari-condensed-display.ttf');
+}
+
+@font-face {
+	font-family: 'ari-display';
+	src: url('../../static/fonts/bitmap/ari/ari-display.ttf');
+}
+
+@font-face {
+	font-family: 'ari-bold';
+	src: url('../../static/fonts/bitmap/ari/ari-bold.ttf');
+}
