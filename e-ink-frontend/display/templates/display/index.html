@@ -20,36 +20,36 @@
                 </div>
                 <div class="container mx-auto pl-8 pr-8 overflow-hidden">
                     <div id="weather"
-                         class="p-8 border-4 border-dashed border-black-500 p-4 max-h-full">
-                        <h1 class="text-2xl font-bold mb-4">Today</h1>
-                        <div class="grid grid-cols-3 gap-4 mb-6">
-                            {% for period in weather.today_periods %}
-                                <div class="">
-                                    <h3 class="font-semibold">{{ period.name }}</h3>
-                                    <p>{{ period.temp_avg }}°</p>
-                                    <p>{{ period.condition }}</p>
-                                </div>
-                            {% endfor %}
-                        </div>
+                         class="pt-8 pr-8 pl-8 border-4 border-dashed border-black-500 pb-4 max-h-full">
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="">
-                                <h1 class="text-2xl font-bold mb-2">Tomorrow</h1>
-                                <p>{{ weather.tomorrow_temp_min }}° - {{ weather.tomorrow_temp_max }}°</p>
-                                <p>{{ weather.tomorrow_condition }}</p>
-                                <p>{{ weather.daily.precipitation_probability_max.1 }}% chance of rain</p>
+                            <div>
+                                {% for period in weather.today_periods %}
+                                    <div class="mb-8">
+                                        <h1 class="text-2xl font-semibold">{{ period.name }}</h1>
+                                        <span class="text-2xl">{{ period.temp_avg }}°</span>
+                                        <p>{{ period.condition }}</p>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="">
-                                <h1 class="text-2xl font-bold mb-2">{{ weather.next_day_name }}</h1>
-                                <p>{{ weather.next_day_temp_min }}° - {{ weather.next_day_temp_max }}°</p>
-                                <p>{{ weather.next_day_condition }}</p>
-                                <p>{{ weather.daily.precipitation_probability_max.2 }}% chance of rain</p>
+                            <div>
+                                <div class="mb-8">
+                                    <h1 class="text-2xl font-bold">Tomorrow</h1>
+                                    <p class="text-2xl">{{ weather.tomorrow_temp_min }}° - {{ weather.tomorrow_temp_max }}°</p>
+                                    <p>{{ weather.tomorrow_condition }}</p>
+                                    <p>{{ weather.daily.precipitation_probability_max.1 }}% chance of rain</p>
+                                </div>
+                                <div class="">
+                                    <h1 class="text-2xl font-bold">{{ weather.next_day_name }}</h1>
+                                    <p class="text-2xl">{{ weather.next_day_temp_min }}° - {{ weather.next_day_temp_max }}°</p>
+                                    <p>{{ weather.next_day_condition }}</p>
+                                    <p>{{ weather.daily.precipitation_probability_max.2 }}% chance of rain</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container mx-auto pl-8 pr-8 overflow-hidden">
                     <div id="word-of-the-day"
-                         w
                          class="max-h-full text-4xl border-4 border-dashed border-black-500 p-4">
                         <div class="mb-8 font-[ari-display]">
                             <h1 class="text-2xl ">Word of the Day</h1>

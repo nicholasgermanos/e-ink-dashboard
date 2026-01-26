@@ -105,7 +105,7 @@ def current_weather():
 def get_ical():
     ical_url = "webcal://p123-caldav.icloud.com/published/2/MTA0ODgzODA0MTEwNDg4M04dWs7LRR4z1Kr4_jOx8I5II3vFh9GYSbJ22eWggG6gbIuJCQ-LYt-QvpczWO-JE_n35D2wAlks2Lv_4WBmMKI"
     start = datetime.now()
-    end = start + timedelta(days=7)
+    end = start + timedelta(days=14)
     my_tz = pytz.timezone("Australia/Sydney")
     es = events(url=ical_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
 

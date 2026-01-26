@@ -21,24 +21,40 @@
 @font-face {
 	font-family: 'ari';
 	src: url('../../static/fonts/bitmap/ari/ari.ttf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
+
 }
 
 @font-face {
 	font-family: 'ari-condensed';
 	src: url('../../static/fonts/bitmap/ari/ari-condensed.ttf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
 }
 
 @font-face {
 	font-family: 'ari-condensed-display';
 	src: url('../../static/fonts/bitmap/ari/ari-condensed-display.ttf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
 }
 
 @font-face {
 	font-family: 'ari-display';
 	src: url('../../static/fonts/bitmap/ari/ari-display.ttf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
 }
 
 @font-face {
 	font-family: 'ari-bold';
 	src: url('../../static/fonts/bitmap/ari/ari-bold.ttf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
 }
