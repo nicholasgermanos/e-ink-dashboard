@@ -39,6 +39,33 @@ def current_weather():
     response.raise_for_status()
     data = response.json()
 
+    def get_weather_icon(code):
+        descriptions = {
+            0: "sun.png",
+            1: "sun.png",
+            2: "cloudy.png",
+            3: "breezy.png",
+            45: "breezy.png",
+            48: "breezy.png",
+            51: "umbrella.png",
+            53: "umbrella.png",
+            55: "umbrella.png",
+            61: "snowflake.png",
+            63: "umbrella.png",
+            65: "snowflake.png",
+            71: "snowflake.png",
+            73: "snowflake.png",
+            75: "snowflake.png",
+            80: "umbrella.png",
+            81: "umbrella.png",
+            82: "umbrella.png",
+            95: "lightning.png",
+            96: "lightning.png",
+            99: "lightning.png",
+        }
+
+        return descriptions.get(code, "Unknown")
+
     def get_weather_description(code):
         descriptions = {
             0: "Clear",
@@ -63,6 +90,7 @@ def current_weather():
             96: "Light Hail",
             99: "Heavy Hail!",
         }
+
         return descriptions.get(code, "Unknown")
 
     periods = [
@@ -83,6 +111,7 @@ def current_weather():
                 "name": period["name"],
                 "temp_avg": math.ceil(sum(temps) / len(temps)),
                 "condition": get_weather_description(max(set(codes), key=codes.count)),
+                "icon_src": get_weather_icon(max(set(codes), key=codes.count)),
             }
         )
 
@@ -93,9 +122,11 @@ def current_weather():
         "tomorrow_temp_min": math.ceil(data["daily"]["temperature_2m_min"][1]),
         "tomorrow_temp_max": math.ceil(data["daily"]["temperature_2m_max"][1]),
         "tomorrow_condition": get_weather_description(data["daily"]["weather_code"][1]),
+        "tomorrow_icon_src": get_weather_icon(data["daily"]["weather_code"][1]),
         "next_day_temp_min": math.ceil(data["daily"]["temperature_2m_min"][2]),
         "next_day_temp_max": math.ceil(data["daily"]["temperature_2m_max"][2]),
         "next_day_condition": get_weather_description(data["daily"]["weather_code"][2]),
+        "next_day_icon_src": get_weather_icon(data["daily"]["weather_code"][2]),
         "next_day_name": (datetime.now() + timedelta(days=2)).date().strftime("%A"),
     }
 

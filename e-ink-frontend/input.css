@@ -6,3 +6,7 @@ body {
 	-moz-osx-font-smoothing: unset;
 	font-smooth: never;
 }
+
+.daily-weather:last-child {
+	margin-bottom: 0;
+}

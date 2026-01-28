@@ -213,20 +213,20 @@
   .mb-3 {
     margin-bottom: calc(var(--spacing) * 3);
   }
-  .mb-4 {
-    margin-bottom: calc(var(--spacing) * 4);
-  }
-  .mb-6 {
-    margin-bottom: calc(var(--spacing) * 6);
-  }
   .mb-8 {
     margin-bottom: calc(var(--spacing) * 8);
+  }
+  .ml-2 {
+    margin-left: calc(var(--spacing) * 2);
   }
   .flex {
     display: flex;
   }
   .grid {
     display: grid;
+  }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
   }
   .h-\[984px\] {
     height: 984px;
@@ -237,8 +237,14 @@
   .max-h-full {
     max-height: 100%;
   }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
+  }
   .w-\[1304px\] {
     width: 1304px;
+  }
+  .w-full {
+    width: 100%;
   }
   .min-w-0 {
     min-width: calc(var(--spacing) * 0);
@@ -246,14 +252,8 @@
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
   .flex-row {
     flex-direction: row;
-  }
-  .gap-4 {
-    gap: calc(var(--spacing) * 4);
   }
   .space-y-3 {
     :where(& > :not(:last-child)) {
@@ -308,12 +308,6 @@
   }
   .pr-8 {
     padding-right: calc(var(--spacing) * 8);
-  }
-  .pb-2 {
-    padding-bottom: calc(var(--spacing) * 2);
-  }
-  .pb-4 {
-    padding-bottom: calc(var(--spacing) * 4);
   }
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
@@ -426,6 +420,9 @@ body {
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
   font-smooth: never;
+}
+.daily-weather:last-child {
+  margin-bottom: 0;
 }
 @property --tw-space-y-reverse {
   syntax: "*";
