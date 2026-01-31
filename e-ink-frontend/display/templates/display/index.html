@@ -26,9 +26,9 @@
                                 {% for period in weather.today_periods %}
                                     <div class="daily-weather mb-8 flex flex-row">
                                         <img class="h-10 w-10" src="/static/weather_icons/{{ period.icon_src }}" />
-                                        <div class="ml-2">
-                                            <h1 class="text-2xl font-semibold">{{ period.name }}</h1>
-                                            <span class="text-2xl">{{ period.temp_avg }}°</span>
+                                        <div class="ml-2 font-[ari-display]">
+                                            <h1 class="text-2xl">{{ period.name }}</h1>
+                                            <span class="text-xl">{{ period.temp_avg }}°</span>
                                             <p>{{ period.condition }}</p>
                                         </div>
                                     </div>
@@ -38,9 +38,9 @@
                                 <div class="mb-8 flex flex-row">
                                     <img class="h-10 w-10"
                                          src="/static/weather_icons/{{ weather.tomorrow_icon_src }}" />
-                                    <div class="ml-2">
+                                    <div class="ml-2 font-[ari-display]">
                                         <h1 class="text-2xl font-bold">Tomorrow</h1>
-                                        <p class="text-2xl">{{ weather.tomorrow_temp_min }}° - {{ weather.tomorrow_temp_max }}°</p>
+                                        <p class="text-xl">{{ weather.tomorrow_temp_min }}° - {{ weather.tomorrow_temp_max }}°</p>
                                         <p>{{ weather.tomorrow_condition }}</p>
                                         <p>{{ weather.daily.precipitation_probability_max.1 }}% chance of rain</p>
                                     </div>
@@ -48,9 +48,9 @@
                                 <div class="flex flex-row">
                                     <img class="h-10 w-10"
                                          src="/static/weather_icons/{{ weather.next_day_icon_src }}" />
-                                    <div class="ml-2">
+                                    <div class="ml-2 font-[ari-display]">
                                         <h1 class="text-2xl font-bold">{{ weather.next_day_name }}</h1>
-                                        <p class="text-2xl">{{ weather.next_day_temp_min }}° - {{ weather.next_day_temp_max }}°</p>
+                                        <p class="text-xl">{{ weather.next_day_temp_min }}° - {{ weather.next_day_temp_max }}°</p>
                                         <p>{{ weather.next_day_condition }}</p>
                                         <p>{{ weather.daily.precipitation_probability_max.2 }}% chance of rain</p>
                                     </div>
@@ -61,8 +61,8 @@
                 </div>
                 <div class="container mx-auto pl-8 pr-8 overflow-hidden">
                     <div id="word-of-the-day"
-                         class="max-h-full text-4xl border-4 border-dashed border-black-500 p-4">
-                        <div class="mb-8 font-[ari-display]">
+                         class="max-h-full text-4xl border-4 border-dashed border-black-500 p-4 font-[ari-display]">
+                        <div class="mb-8">
                             <h1 class="text-2xl ">Word of the Day</h1>
                             <h1 class="text-5xl ">{{ word_of_the_day.word }}</h1>
                         </div>
@@ -84,15 +84,15 @@
                                     {% if day_events %}
                                         <div class="space-y-3 cutoff-contestant-1">
                                             {% for event in day_events %}
-                                                <div class="font-[ari-bold] border-l-4 border-[#FF0000] pl-3 py-2">
+                                                <div class="font-[ari-display] border-l-4 border-[#FF0000] pl-3 py-2">
                                                     <div class="font-[ari-display] text-xl">{{ event.summary }}</div>
                                                     {% if event.all_day %}
                                                         <div class="text-base">All day</div>
                                                     {% else %}
                                                         <div class="text-base">{{ event.start_time }} - {{ event.end_time }}</div>
                                                     {% endif %}
-                                                    {% if event.location %}<div class="text-xs">@ {{ event.location }}</div>{% endif %}
-                                                    {% if event.description %}<div class="text-sm mt-1">{{ event.description }}</div>{% endif %}
+                                                    {% if event.location %}<div class="text-xs tracking-[2px]">@ {{ event.location }}</div>{% endif %}
+                                                    {% if event.description %}<div class="text-sm mt-1 tracking-[2px]">{{ event.description }}</div>{% endif %}
                                                 </div>
                                             {% endfor %}
                                         </div>
