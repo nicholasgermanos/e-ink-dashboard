@@ -1,6 +1,7 @@
 import datetime
 import math
 import random
+import zoneinfo
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
@@ -250,7 +251,7 @@ def index(request):
     context = {}
 
     # Date
-    today = date.today()
+    today = datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
     day = today.strftime("%A")
     day_number = today.strftime("%d") + get_ordinal(today.day)
     context["day"] = day
