@@ -24,6 +24,9 @@ def screenshot():
     chrome_options = webdriver.ChromeOptions()
 
     chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument('--font-render-hinting=none')
+    chrome_options.add_argument('--disable-font-subpixel-positioning')
+    chrome_options.add_argument('--disable-lcd-text')
     chrome_options.add_argument("--force-device-scale-factor=2")
     chrome_options.add_argument("--high-dpi-support=1")
     chrome_options.add_argument("--force-color-profile=srgb")
@@ -63,7 +66,7 @@ def convert_greyscale():
     for x in range(width):
         for y in range(height):
             r, g, b = img.getpixel((x, y))
-            if r == b == g and r < 250:
+            if r == b == g and r < 195:
                 out.putpixel((x, y), 0)
 
     out.save("xscale.png")

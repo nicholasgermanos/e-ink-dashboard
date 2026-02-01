@@ -10,15 +10,15 @@
     </head>
     <body>
         <div id="parent-container"
-             class="grid grid-cols-2 border-8 border-solid border-black-600 bg-white-50 w-[1304px] h-[984px] font-[ari-bold] overflow-hidden">
-            <div id="left-side" class="grid min-w-0">
-                <div id="date" class="pt-8 pl-8 pr-8 text-4xl font-[ari-display]">
+             class="grid grid-cols-2 border-8 border-solid border-black-600 bg-white-50 w-[1304px] h-[984px] font-[ari-display] overflow-hidden">
+            <div id="left-side" class="flex flex-col min-w-0 h-[984px]">
+                <div id="date" class="pt-8 pl-8 pr-8 mb-6 text-4xl">
                     <h1>
                         {{ day }} <span class="text-xl">the</span>
                     </h1>
                     <h1>{{ day_number }} of {{ month }}</h1>
                 </div>
-                <div class="container mx-auto pl-8 pr-8 overflow-hidden">
+                <div class="container mx-auto pl-8 pr-8 mb-6 overflow-hidden">
                     <div id="weather"
                          class="p-8 border-4 border-dashed border-black-500 max-h-full">
                         <div class="grid grid-cols-2 w-full">
@@ -26,10 +26,10 @@
                                 {% for period in weather.today_periods %}
                                     <div class="daily-weather mb-8 flex flex-row">
                                         <img class="h-10 w-10" src="/static/weather_icons/{{ period.icon_src }}" />
-                                        <div class="ml-2 font-[ari-display]">
+                                        <div class="ml-2">
                                             <h1 class="text-2xl">{{ period.name }}</h1>
-                                            <span class="text-xl">{{ period.temp_avg }}°</span>
-                                            <p>{{ period.condition }}</p>
+                                            <span class="text-large">{{ period.temp_avg }}°</span>
+                                            <p class="text-large">{{ period.condition }}</p>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -38,21 +38,21 @@
                                 <div class="mb-8 flex flex-row">
                                     <img class="h-10 w-10"
                                          src="/static/weather_icons/{{ weather.tomorrow_icon_src }}" />
-                                    <div class="ml-2 font-[ari-display]">
-                                        <h1 class="text-2xl font-bold">Tomorrow</h1>
-                                        <p class="text-xl">{{ weather.tomorrow_temp_min }}° - {{ weather.tomorrow_temp_max }}°</p>
-                                        <p>{{ weather.tomorrow_condition }}</p>
-                                        <p>{{ weather.daily.precipitation_probability_max.1 }}% chance of rain</p>
+                                    <div class="ml-2">
+                                        <h1 class="text-2xl">Tomorrow</h1>
+                                        <p class="text-large">{{ weather.tomorrow_temp_min }}° - {{ weather.tomorrow_temp_max }}°</p>
+                                        <p class="text-large">{{ weather.tomorrow_condition }}</p>
+                                        <p class="text-large">{{ weather.daily.precipitation_probability_max.1 }}% chance of rain</p>
                                     </div>
                                 </div>
                                 <div class="flex flex-row">
                                     <img class="h-10 w-10"
                                          src="/static/weather_icons/{{ weather.next_day_icon_src }}" />
-                                    <div class="ml-2 font-[ari-display]">
-                                        <h1 class="text-2xl font-bold">{{ weather.next_day_name }}</h1>
-                                        <p class="text-xl">{{ weather.next_day_temp_min }}° - {{ weather.next_day_temp_max }}°</p>
-                                        <p>{{ weather.next_day_condition }}</p>
-                                        <p>{{ weather.daily.precipitation_probability_max.2 }}% chance of rain</p>
+                                    <div class="ml-2">
+                                        <h1 class="text-2xl">{{ weather.next_day_name }}</h1>
+                                        <p class="text-large">{{ weather.next_day_temp_min }}° - {{ weather.next_day_temp_max }}°</p>
+                                        <p class="text-large">{{ weather.next_day_condition }}</p>
+                                        <p class="text-large">{{ weather.daily.precipitation_probability_max.2 }}% chance of rain</p>
                                     </div>
                                 </div>
                             </div>
@@ -61,49 +61,61 @@
                 </div>
                 <div class="container mx-auto pl-8 pr-8 overflow-hidden">
                     <div id="word-of-the-day"
-                         class="max-h-full text-4xl border-4 border-dashed border-black-500 p-4 font-[ari-display]">
+                         class="max-h-full text-4xl border-4 border-dashed border-black-500 p-4">
                         <div class="mb-8">
                             <h1 class="text-2xl ">Word of the Day</h1>
-                            <h1 class="text-5xl ">{{ word_of_the_day.word }}</h1>
+                            <h1 class="text-5xl text-red">{{ word_of_the_day.word }}</h1>
                         </div>
-                        <p class="text-xl mb-8">{{ word_of_the_day.description }}</p>
-                        <p class="text-xl mb-2">"{{ word_of_the_day.quote }}"</p>
+                        <p class="text-lg mb-8">{{ word_of_the_day.description }}</p>
+                        <p class="text-lg mb-2">"{{ word_of_the_day.quote }}"</p>
                     </div>
                 </div>
             </div>
-            <div id="calendar">
-                <table>
-                    <tbody>
-                        <div class="p-8">
-                            {% for day, day_events in events.items %}
-                                <div class="cutoff-contestant-2 bg-white rounded-lg pb-6">
-                                    <h2 class="text-2xl mb-3">
-                                        <span class="font-[ari-display]">{{ day }}</span>
-                                        {% if day_events %}<span class="text-base font-normal text-500">{{ day_events.0.date }}</span>{% endif %}
-                                    </h2>
-                                    {% if day_events %}
-                                        <div class="space-y-3 cutoff-contestant-1">
-                                            {% for event in day_events %}
-                                                <div class="font-[ari-display] border-l-4 border-[#FF0000] pl-3 py-2">
-                                                    <div class="font-[ari-display] text-xl">{{ event.summary }}</div>
-                                                    {% if event.all_day %}
-                                                        <div class="text-base">All day</div>
-                                                    {% else %}
-                                                        <div class="text-base">{{ event.start_time }} - {{ event.end_time }}</div>
-                                                    {% endif %}
-                                                    {% if event.location %}<div class="text-xs tracking-[2px]">@ {{ event.location }}</div>{% endif %}
-                                                    {% if event.description %}<div class="text-sm mt-1 tracking-[2px]">{{ event.description }}</div>{% endif %}
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <p class="text-400">No events this week</p>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
+            <div id="right-column">
+                <div id="calendar">
+                    <table>
+                        <tbody>
+                            <div class="p-8 pb-0">
+                                {% for day, day_events in events.items %}
+                                    <div class="cutoff-contestant-2 bg-white rounded-lg pb-6">
+                                        <h2 class="text-2xl mb-3">
+                                            <span class="">{{ day }}</span>
+                                            {% if day_events %}<span class="text-base">{{ day_events.0.date }}</span>{% endif %}
+                                        </h2>
+                                        {% if day_events %}
+                                            <div class="space-y-3 cutoff-contestant-1">
+                                                {% for event in day_events %}
+                                                    <div class=" border-l-4 border-[#FF0000] pl-3 py-2">
+                                                        <div class=" text-xl">{{ event.summary }}</div>
+                                                        {% if event.all_day %}
+                                                            <div class="text-base">All day</div>
+                                                        {% else %}
+                                                            <div class="text-base">{{ event.start_time }} - {{ event.end_time }}</div>
+                                                        {% endif %}
+                                                        {% if event.location %}<div class="text-base">@ {{ event.location }}</div>{% endif %}
+                                                        {% if event.description %}<div class="text-base mt-1">{{ event.description }}</div>{% endif %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            <p class="text-400">No events this week</p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="fun-fact">
+                    <div class="">
+                        <img class="h-[150px]" src="/static/stars_top.svg" />
+                        <div class="p-8 pr-20 ml-12 relative -top-[100px]">
+                            <h1 class="text-lg">{{ fun.title }}</h1>
+                            <h1 class="text-xl">{{ fun.text }}</h1>
                         </div>
-                    </tbody>
-                </table>
+                        <img class="relative -top-[170px]" src="/static/stars_bottom.svg" />
+                    </div>
+                </div>
             </div>
         </div>
         <div id="container" class="overflow-hidden max-h-[500px]">
@@ -113,6 +125,7 @@
 			const container = document.getElementById('parent-container');
 			const items1 = container.querySelectorAll('.cutoff-contestant-1');
 			const items2 = container.querySelectorAll('.cutoff-contestant-2');
+			const fun = document.getElementById('fun-fact');
 
 			items1.forEach(item => {
 				if (item.offsetTop + item.offsetHeight > container.offsetHeight) {
@@ -126,6 +139,10 @@
 					item.style.display = 'none';
 				}
 			});
+
+			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight || fun.offsetHeight < ASSUMED_HEIGHT_OF_LONE_TITLE) {
+				fun.style.display = 'none';
+			}
         </script>
     </body>
 </html>

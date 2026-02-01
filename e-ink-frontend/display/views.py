@@ -1,5 +1,6 @@
 import datetime
 import math
+import random
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
@@ -40,31 +41,40 @@ def current_weather():
     data = response.json()
 
     def get_weather_icon(code):
-        descriptions = {
-            0: "sun.svg",
-            1: "sun.svg",
-            2: "cloudy.svg",
-            3: "breezy.svg",
-            45: "breezy.svg",
-            48: "breezy.svg",
-            51: "umbrella.svg",
-            53: "umbrella.svg",
-            55: "umbrella.svg",
-            61: "snowflake.svg",
-            63: "umbrella.svg",
-            65: "snowflake.svg",
-            71: "snowflake.svg",
-            73: "snowflake.svg",
-            75: "snowflake.svg",
-            80: "umbrella.svg",
-            81: "umbrella.svg",
-            82: "umbrella.svg",
-            95: "lightning.svg",
-            96: "lightning.svg",
-            99: "lightning.svg",
+        overcast = "overcast.svg"
+        sunny = "sunny.svg"
+        cloudy_night = "cloudy_night.svg"
+        clear_night = "clear_night.svg"
+        rainy = "rainy.svg"
+        partial_cloud = "cloudy_2.svg"
+        stormy = "stormy.svg"
+        snowy = "snowflake.svg"
+
+        icons = {
+            0: sunny,
+            1: sunny,
+            2: partial_cloud,
+            3: overcast,
+            45: overcast,
+            48: overcast,
+            51: rainy,
+            53: rainy,
+            55: rainy,
+            61: snowy,
+            63: rainy,
+            65: snowy,
+            71: snowy,
+            73: snowy,
+            75: snowy,
+            80: rainy,
+            81: rainy,
+            82: rainy,
+            95: stormy,
+            96: stormy,
+            99: stormy,
         }
 
-        return descriptions.get(code, "Unknown")
+        return icons.get(code, partial_cloud)
 
     def get_weather_description(code):
         descriptions = {
@@ -106,12 +116,14 @@ def current_weather():
         temps = data["hourly"]["temperature_2m"][start_idx:end_idx]
         codes = data["hourly"]["weather_code"][start_idx:end_idx]
 
+        print("max code for period " + period["name"] + " is " + str(max(set(codes))))
+
         today_periods.append(
             {
                 "name": period["name"],
                 "temp_avg": math.ceil(sum(temps) / len(temps)),
-                "condition": get_weather_description(max(set(codes), key=codes.count)),
-                "icon_src": get_weather_icon(max(set(codes), key=codes.count)),
+                "condition": get_weather_description(max(set(codes))),
+                "icon_src": get_weather_icon(max(set(codes))),
             }
         )
 
@@ -189,6 +201,43 @@ def get_ical():
     return dict(events_dict)
 
 
+def get_fun():
+
+    fun = {}
+
+    # titles
+    titles = [
+        "Psst",
+        "I gotta tell you something",
+        "Guess what",
+        "You're gonna love this",
+        "Guys guess what",
+        "I bet you've never heard this",
+        "Can I tell you something?",
+    ]
+
+    fun["title"] = random.choice(titles)
+
+    dice_roll = random.randrange(0, 2)
+
+    print(dice_roll)
+    if dice_roll == 0:
+        url = "https://uselessfacts.jsph.pl/api/v2/facts/random"
+        response = requests.get(url)
+        data = response.json()
+        fun["text"] = data["text"]
+
+    elif dice_roll == 1:
+        url = "https://icanhazdadjoke.com/"
+        headers = {"Accept": "application/json"}
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        print(data)
+        fun["text"] = data["joke"]
+
+    return fun
+
+
 def get_ordinal(n):
     if 10 <= n % 100 <= 20:
         suffix = "th"
@@ -216,5 +265,7 @@ def index(request):
 
     # Word of the day
     context["word_of_the_day"] = get_word_of_the_day()
+
+    context["fun"] = get_fun()
 
     return render(request, "display/index.html", context)
