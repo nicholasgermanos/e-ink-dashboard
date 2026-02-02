@@ -191,7 +191,7 @@ def get_ical():
             "description": event.description,
             "location": event.location,
             "date": (
-                event.start.strftime("%d") + get_ordinal(event.start.day)
+                event.start.strftime("%-d") + get_ordinal(event.start.day)
                 if event.start
                 else None
             ),
@@ -253,7 +253,7 @@ def index(request):
     # Date
     today = datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
     day = today.strftime("%A")
-    day_number = today.strftime("%d") + get_ordinal(today.day)
+    day_number = today.strftime("%-d") + get_ordinal(today.day)
     context["day"] = day
     context["day_number"] = day_number
     context["month"] = today.strftime("%B")
