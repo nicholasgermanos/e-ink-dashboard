@@ -13,7 +13,10 @@ from icalevents.icalevents import events
 
 
 def get_word_of_the_day():
-    response = requests.get("https://www.merriam-webster.com/word-of-the-day/")
+    # response = requests.get("https://www.merriam-webster.com/word-of-the-day/")
+    response = requests.get(
+        "https://www.merriam-webster.com/word-of-the-day/vendetta-2026-01-16"
+    )
     soup = BeautifulSoup(response.text)
     description_div = soup.find_all("div", class_="wod-definition-container")
     word_container = soup.find_all("h2", class_="word-header-txt")
@@ -36,7 +39,7 @@ def get_word_of_the_day():
 
 
 def current_weather():
-    url = "https://api.open-meteo.com/v1/forecast?latitude=-33.9776690401036&longitude=150.85373113387638&daily=uv_index_max,weather_code,rain_sum,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max&hourly=temperature_2m,weather_code,showers,rain&timezone=Australia%2FSydney&forecast_days=3"
+    url = "https://api.open-meteo.com/v1/forecast?latitude=-33.9776690401036&longitude=150.85373113387638&daily=uv_index_max,weather_code,rain_sum,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max&hourly=temperature_2m,weather_code,showers,rain&timezone=Australia%2FSydney&forecast_days=4"
     response = requests.get(url)
     response.raise_for_status()
     data = response.json()
@@ -61,9 +64,9 @@ def current_weather():
             51: rainy,
             53: rainy,
             55: rainy,
-            61: snowy,
+            61: rainy,
             63: rainy,
-            65: snowy,
+            65: stormy,
             71: snowy,
             73: snowy,
             75: snowy,
@@ -105,9 +108,9 @@ def current_weather():
         return descriptions.get(code, "Unknown")
 
     periods = [
-        {"name": "Morning", "start": 5, "end": 11},
-        {"name": "Afternoon", "start": 11, "end": 17},
-        {"name": "Night", "start": 17, "end": 23},
+        {"name": "Morning", "start": 5, "end": 10},
+        {"name": "Afternoon", "start": 11, "end": 18},
+        {"name": "Evening", "start": 19, "end": 23},
     ]
 
     today_periods = []
@@ -115,32 +118,47 @@ def current_weather():
         start_idx = period["start"]
         end_idx = period["end"]
         temps = data["hourly"]["temperature_2m"][start_idx:end_idx]
-        codes = data["hourly"]["weather_code"][start_idx:end_idx]
-
-        print("max code for period " + period["name"] + " is " + str(max(set(codes))))
+        weather_codes = data["hourly"]["weather_code"][start_idx:end_idx]
 
         today_periods.append(
             {
                 "name": period["name"],
-                "temp_avg": math.ceil(sum(temps) / len(temps)),
-                "condition": get_weather_description(max(set(codes))),
-                "icon_src": get_weather_icon(max(set(codes))),
+                "temp_avg": math.ceil(max(set(temps))),
+                "condition": get_weather_description(max(set(weather_codes))),
+                "icon_src": get_weather_icon(max(set(weather_codes))),
             }
         )
 
+    days = [
+        {"name": "Today"},
+        {"name": "Tomorrow"},
+        {
+            "name": (
+                datetime.now(zoneinfo.ZoneInfo("Australia/Sydney")) + timedelta(days=2)
+            )
+            .date()
+            .strftime("%A")
+        },
+        {
+            "name": (
+                datetime.now(zoneinfo.ZoneInfo("Australia/Sydney")) + timedelta(days=3)
+            )
+            .date()
+            .strftime("%A")
+        },
+    ]
+
+    for index, day in enumerate(days):
+        day["min_temp"] = math.ceil(data["daily"]["temperature_2m_min"][index])
+        day["max_temp"] = math.ceil(data["daily"]["temperature_2m_max"][index])
+        day["condition"] = get_weather_description(data["daily"]["weather_code"][index])
+        day["icon_src"] = get_weather_icon(data["daily"]["weather_code"][index])
+        day["max_uv"] = data["daily"]["uv_index_max"][index]
+        day["rain_chance"] = data["daily"]["precipitation_probability_max"][index]
+
     weather = {
-        "daily": data["daily"],
-        "hourly": data["hourly"],
         "today_periods": today_periods,
-        "tomorrow_temp_min": math.ceil(data["daily"]["temperature_2m_min"][1]),
-        "tomorrow_temp_max": math.ceil(data["daily"]["temperature_2m_max"][1]),
-        "tomorrow_condition": get_weather_description(data["daily"]["weather_code"][1]),
-        "tomorrow_icon_src": get_weather_icon(data["daily"]["weather_code"][1]),
-        "next_day_temp_min": math.ceil(data["daily"]["temperature_2m_min"][2]),
-        "next_day_temp_max": math.ceil(data["daily"]["temperature_2m_max"][2]),
-        "next_day_condition": get_weather_description(data["daily"]["weather_code"][2]),
-        "next_day_icon_src": get_weather_icon(data["daily"]["weather_code"][2]),
-        "next_day_name": (datetime.now() + timedelta(days=2)).date().strftime("%A"),
+        "days": days,
     }
 
     return weather
@@ -148,14 +166,14 @@ def current_weather():
 
 def get_ical():
     ical_url = "webcal://p123-caldav.icloud.com/published/2/MTA0ODgzODA0MTEwNDg4M04dWs7LRR4z1Kr4_jOx8I5II3vFh9GYSbJ22eWggG6gbIuJCQ-LYt-QvpczWO-JE_n35D2wAlks2Lv_4WBmMKI"
-    start = datetime.now()
+    start = datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
     end = start + timedelta(days=14)
     my_tz = pytz.timezone("Australia/Sydney")
     es = events(url=ical_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
 
     events_dict = defaultdict(list)
 
-    today = datetime.now().date()
+    today = datetime.now(zoneinfo.ZoneInfo("Australia/Sydney")).date()
     tomorrow = (datetime.now() + timedelta(days=1)).date()
 
     def sort_by_day(e):
