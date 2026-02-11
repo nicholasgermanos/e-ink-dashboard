@@ -17,7 +17,6 @@
                         {{ day }} <span class="text-xl">the</span>
                     </h1>
                     <h1>{{ day_number }} of {{ month }}</h1>
-                    <p class="text-lg">{{ weather.days.0.min_temp }}° - {{ weather.days.0.max_temp }}°</p>
                 </div>
                 <div id="calendar">
                     <table>
@@ -56,14 +55,12 @@
                     </table>
                 </div>
                 <div id="fun-fact">
-                    <div class="">
-                        <img class="h-[150px]" src="/static/stars_top.svg" />
-                        <div class="p-8 pr-20 ml-12 relative -top-[100px]">
-                            <h1 class="text-lg">{{ fun.title }}</h1>
-                            <h1 class="text-xl">{{ fun.text }}</h1>
-                        </div>
-                        <img class="relative -top-[170px]" src="/static/stars_bottom.svg" />
+                    <img class="h-[150px]" src="/static/stars_top.svg" />
+                    <div class="p-8 pr-20 ml-12 relative -top-[100px]">
+                        <h1 class="text-lg">{{ fun.title }}</h1>
+                        <h1 class="text-xl">{{ fun.text }}</h1>
                     </div>
+                    <img class="relative -top-[170px]" src="/static/stars_bottom.svg" />
                 </div>
             </div>
             <div id="right-column">
@@ -72,13 +69,18 @@
                          class="p-8 border-4 border-dashed border-black-500 max-h-full">
                         <div class="grid grid-cols-2 w-full">
                             <div>
+                                <h1 class="text-4xl">Forecast</h1>
+                                <p class="text-xl mb-6">
+                                    <span>{{ weather.days.0.min_temp }}° -</span> <span class="{% if weather.days.0.max_temp > 33 %}text-[#FF0000]{% endif %}">{{ weather.days.0.max_temp }}°</span><span class="ml-3">uv</span>
+                                    <span class="{% if weather.days.0.max_uv > 7 %}text-[#FF0000]{% endif %}">{{ weather.days.0.max_uv }}</span>
+                                </p>
                                 {% for period in weather.today_periods %}
                                     <div class="daily-weather mb-8 flex flex-row">
                                         <img class="h-10 w-10" src="/static/weather_icons/{{ period.icon_src }}" />
                                         <div class="ml-2">
                                             <h1 class="text-2xl">{{ period.name }}</h1>
-                                            <span class="text-lg">{{ period.temp_avg }}°</span>
                                             <p class="text-lg">{{ period.condition }}</p>
+                                            <span class="text-lg {% if period.temp_avg > 33 %}text-[#FF0000]{% endif %}">{{ period.temp_avg }}°</span>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -90,8 +92,10 @@
                                             <img class="h-10 w-10" src="/static/weather_icons/{{ day.icon_src }}" />
                                             <div class="ml-2">
                                                 <h1 class="text-2xl">{{ day.name }}</h1>
-                                                <p class="text-lg">{{ day.min_temp }}° - {{ day.max_temp }}°</p>
-                                                <p class="text-lg">{{ day.condition }}</p>
+                                                <p class="text-lg">
+                                                    {{ day.condition }}<span class="ml-3 mr-1">uv</span><span class="text-lg {% if day.max_uv > 7 %}text-[#FF0000]{% endif %}">{{ day.max_uv }}</span>
+                                                </p>
+                                                <span class="text-lg">{{ day.min_temp }}° -</span> <span class="{% if day.max_temp > 33 %}text-[#FF0000]{% endif %}">{{ day.max_temp }}°</span>
                                                 <p class="text-lg">{{ day.rain_chance }}% chance of rain</p>
                                             </div>
                                         </div>
@@ -104,11 +108,11 @@
                 <div class="container mx-auto pl-8 pr-8 overflow-hidden">
                     <div id="word-of-the-day"
                          class="max-h-full text-4xl border-4 border-dashed border-black-500 p-4">
-                        <div class="mb-8">
+                        <div class="mb-6">
                             <h1 class="text-2xl ">Word of the Day</h1>
-                            <h1 class="text-5xl text-red">{{ word_of_the_day.word }}</h1>
+                            <h1 class="text-5xl">{{ word_of_the_day.word }}</h1>
                         </div>
-                        <p class="text-lg mb-8">{{ word_of_the_day.description }}</p>
+                        <p class="text-lg mb-6">{{ word_of_the_day.description }}</p>
                         <p class="text-lg mb-2">"{{ word_of_the_day.quote }}"</p>
                     </div>
                 </div>
@@ -136,7 +140,10 @@
 				}
 			});
 
-			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight || fun.offsetHeight < ASSUMED_HEIGHT_OF_LONE_TITLE) {
+			console.log(fun.offsetTop)
+			console.log(fun.offsetHeight)
+			console.log(container.offsetHeight)
+			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight - 100) {
 				fun.style.display = 'none';
 			}
         </script>

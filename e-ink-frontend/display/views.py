@@ -13,10 +13,10 @@ from icalevents.icalevents import events
 
 
 def get_word_of_the_day():
-    # response = requests.get("https://www.merriam-webster.com/word-of-the-day/")
-    response = requests.get(
-        "https://www.merriam-webster.com/word-of-the-day/vendetta-2026-01-16"
-    )
+    response = requests.get("https://www.merriam-webster.com/word-of-the-day/")
+    # response = requests.get(
+    #     "https://www.merriam-webster.com/word-of-the-day/vendetta-2026-01-16"
+    # )
     soup = BeautifulSoup(response.text)
     description_div = soup.find_all("div", class_="wod-definition-container")
     word_container = soup.find_all("h2", class_="word-header-txt")
@@ -108,8 +108,8 @@ def current_weather():
         return descriptions.get(code, "Unknown")
 
     periods = [
-        {"name": "Morning", "start": 5, "end": 10},
-        {"name": "Afternoon", "start": 11, "end": 18},
+        {"name": "Morning", "start": 5, "end": 11},
+        {"name": "Afternoon", "start": 11, "end": 19},
         {"name": "Evening", "start": 19, "end": 23},
     ]
 
@@ -153,7 +153,7 @@ def current_weather():
         day["max_temp"] = math.ceil(data["daily"]["temperature_2m_max"][index])
         day["condition"] = get_weather_description(data["daily"]["weather_code"][index])
         day["icon_src"] = get_weather_icon(data["daily"]["weather_code"][index])
-        day["max_uv"] = data["daily"]["uv_index_max"][index]
+        day["max_uv"] = math.ceil(data["daily"]["uv_index_max"][index])
         day["rain_chance"] = data["daily"]["precipitation_probability_max"][index]
 
     weather = {
