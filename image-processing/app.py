@@ -21,7 +21,7 @@ CHROME_SCREENSHOT_SCALE = 3
 def screenshot():
 
     chrome_options = Options()
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = webdriver.ChromeOptions();
 
     chrome_options.add_argument("--headless=new")
     chrome_options.add_argument('--font-render-hinting=none')
