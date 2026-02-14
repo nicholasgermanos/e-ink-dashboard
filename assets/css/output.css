@@ -211,6 +211,9 @@
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
   }
+  .mr-1 {
+    margin-right: calc(var(--spacing) * 1);
+  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
@@ -225,6 +228,9 @@
   }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
+  }
+  .ml-3 {
+    margin-left: calc(var(--spacing) * 3);
   }
   .ml-12 {
     margin-left: calc(var(--spacing) * 12);
@@ -363,6 +369,9 @@
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
+  .text-\[\#FF0000\] {
+    color: #FF0000;
   }
 }
 @font-face {

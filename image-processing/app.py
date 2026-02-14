@@ -16,7 +16,7 @@ DISPLAY_HEIGHT = 984
 DISPLAY_WIDTH = 1304
 
 MAX_CHUNK_SIZE = DISPLAY_HEIGHT * DISPLAY_WIDTH / 64
-
+CHROME_SCREENSHOT_SCALE = 3
 
 def screenshot():
 
@@ -27,7 +27,7 @@ def screenshot():
     chrome_options.add_argument('--font-render-hinting=none')
     chrome_options.add_argument('--disable-font-subpixel-positioning')
     chrome_options.add_argument('--disable-lcd-text')
-    chrome_options.add_argument("--force-device-scale-factor=2")
+    chrome_options.add_argument("--force-device-scale-factor=3")
     chrome_options.add_argument("--high-dpi-support=1")
     chrome_options.add_argument("--force-color-profile=srgb")
     chrome_options.add_argument("--disable-gpu")
@@ -50,7 +50,7 @@ def screenshot():
 
     img_data = base64.b64decode(screenshot["data"])
     img = Image.open(BytesIO(img_data))
-    img = img.resize((img.width // 2, img.height // 2), Image.NEAREST)
+    img = img.resize((img.width // CHROME_SCREENSHOT_SCALE, img.height //  CHROME_SCREENSHOT_SCALE), Image.NEAREST)
 
     img.save("screenshot.png")
 
