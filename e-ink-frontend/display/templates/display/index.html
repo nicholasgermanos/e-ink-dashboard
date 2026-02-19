@@ -27,7 +27,7 @@
                                         {% if day != "Today" %}
                                             <h2 class="text-2xl mb-3">
                                                 <span class="">{{ day }}</span>
-                                                {% if day_events %}<span class="text-base">{{ day_events.0.date }}</span>{% endif %}
+                                                <span class="text-base">{{ day_events.0.date }}</span>
                                             </h2>
                                         {% endif %}
                                         {% if day_events %}
@@ -134,7 +134,9 @@
 			});
 
 			items2.forEach(item => {
-				ASSUMED_HEIGHT_OF_LONE_TITLE = 100;
+
+				// IF you change font sizes, this might change. If elements start disappearing, you may need to adjust this
+				ASSUMED_HEIGHT_OF_LONE_TITLE = 68;
 				if (item.offsetTop + item.offsetHeight > container.offsetHeight || item.offsetHeight < ASSUMED_HEIGHT_OF_LONE_TITLE) {
 					item.style.display = 'none';
 				}
