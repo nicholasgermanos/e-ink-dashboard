@@ -256,6 +256,12 @@ def get_fun():
 
     return fun
 
+def get_train_game():
+    a = random.randrange(0,9)
+    b = random.randrange(0,9)
+    c = random.randrange(0,9)
+    d = random.randrange(0,9)
+    return [a, b, c, d]
 
 def get_ordinal(n):
     if 10 <= n % 100 <= 20:
@@ -285,6 +291,7 @@ def index(request):
     # Word of the day
     context["word_of_the_day"] = get_word_of_the_day()
 
-    context["fun"] = get_fun()
+    #context["fun"] = get_fun()
+    context["train_game"] = get_train_game()
 
     return render(request, "display/index.html", context)

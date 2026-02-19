@@ -54,14 +54,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="fun-fact">
-                    <img class="h-[150px]" src="/static/stars_top.svg" />
-                    <div class="p-8 pr-20 ml-12 relative -top-[100px]">
-                        <h1 class="text-base">{{ fun.title }}</h1>
-                        <h1 class="text-xl">{{ fun.text }}</h1>
-                    </div>
-                    <img class="relative -top-[170px]" src="/static/stars_bottom.svg" />
-                </div>
             </div>
             <div id="right-column">
                 <div class="container mx-auto pl-8 pr-8 pt-8 mb-6 overflow-hidden">
@@ -116,6 +108,14 @@
                         <p class="text-base mb-2">"{{ word_of_the_day.quote }}"</p>
                     </div>
                 </div>
+				{% if train_game %}
+					<div id="train_game">
+						<div class="p-8 pb-0 text-right">
+							<h1 class="text-base">Train Game</h1>
+							<h1 class="text-5xl">{{ train_game.0}}{{train_game.1}}{{train_game.2}}{{train_game.3}}</h1>
+						</div>
+					</div>
+				{% endif %}
             </div>
         </div>
         <div id="container" class="overflow-hidden max-h-[500px]">
@@ -125,7 +125,7 @@
 			const container = document.getElementById('parent-container');
 			const items1 = container.querySelectorAll('.cutoff-contestant-1');
 			const items2 = container.querySelectorAll('.cutoff-contestant-2');
-			const fun = document.getElementById('fun-fact');
+			const fun = document.getElementById('train_game');
 
 			items1.forEach(item => {
 				if (item.offsetTop + item.offsetHeight > container.offsetHeight) {
@@ -140,10 +140,7 @@
 				}
 			});
 
-			console.log(fun.offsetTop)
-			console.log(fun.offsetHeight)
-			console.log(container.offsetHeight)
-			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight - 100) {
+			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight) {
 				fun.style.display = 'none';
 			}
         </script>
