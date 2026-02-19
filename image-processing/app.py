@@ -101,7 +101,7 @@ def convert_binary():
     bw = cv2.threshold(img, 230, 255, cv2.THRESH_BINARY)
 
     # print(type(bw[1]))
-    with open("output.txt", "r+") as file:
+    with open("output.txt", "w+") as file:
         file.truncate(0)
         for x in bw[1]:
             for y in x:
