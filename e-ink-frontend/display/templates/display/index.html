@@ -22,19 +22,19 @@
                     <table>
                         <tbody>
                             <div class="pl-8 pr-8">
-                                {% for day, day_events in events.items %}
-                                    <div class="cutoff-contestant-2 bg-white rounded-lg pb-6">
-                                        {% if day != "Today" %}
+                                {% for key, day_events in events.items %}
+                                    <div class="cutoff-contestant-2 bg-white pb-6 {% if day_events.0.new_week %}pt-4 border-t-4 border-dashed border-black-500{% endif %}">
+                                        {% if day_events.0.day_of_week != "Today" %}
                                             <h2 class="text-2xl mb-3">
-                                                <span class="">{{ day }}</span>
+                                                <span class="">{{ day_events.0.day_of_week }}</span>
                                                 <span class="text-base">{{ day_events.0.date }}</span>
                                             </h2>
                                         {% endif %}
                                         {% if day_events %}
                                             <div class="space-y-3 cutoff-contestant-1">
                                                 {% for event in day_events %}
-                                                    <div class=" border-l-4 border-[#FF0000] pl-3 py-2">
-                                                        <div class=" text-xl">{{ event.summary }}</div>
+                                                    <div class="border-l-4 border-[#FF0000] pl-3 py-2">
+                                                        <div class="text-xl">{{ event.summary }}</div>
                                                         {% if event.all_day %}
                                                             <div class="text-base">All day</div>
                                                         {% else %}
@@ -86,7 +86,7 @@
                                                 <h1 class="text-2xl">{{ day.name }}</h1>
                                                 <span class="text-xl">{{ day.min_temp }}° -</span> <span class="text-xl {% if day.max_temp > 33 %}text-[#FF0000]{% endif %}">{{ day.max_temp }}°</span>
                                                 <p class="text-base">
-                                                    {{ day.condition }}<span class="ml-3 mr-1">uv</span><span class="{% if day.max_uv > 7 %}text-[#FF0000]{% endif %}">{{ day.max_uv }}</span>
+                                                    {{ day.condition }}<span class="ml-3 mr-1">uv</span><span class="text-xl {% if day.max_uv > 7 %}text-[#FF0000]{% endif %}">{{ day.max_uv }}</span>
                                                 </p>
                                                 <p class="text-base">{{ day.rain_chance }}% chance of rain</p>
                                             </div>
@@ -108,14 +108,14 @@
                         <p class="text-base mb-2">"{{ word_of_the_day.quote }}"</p>
                     </div>
                 </div>
-				{% if train_game %}
-					<div id="train_game">
-						<div class="p-8 pb-0 text-right">
-							<h1 class="text-base">Train Game</h1>
-							<h1 class="text-5xl">{{ train_game.0}}{{train_game.1}}{{train_game.2}}{{train_game.3}}</h1>
-						</div>
-					</div>
-				{% endif %}
+                {% if train_game %}
+                    <div id="train_game">
+                        <div class="p-8 pb-0 pt-4 text-right">
+                            <h1 class="text-base">Train Game</h1>
+                            <h1 class="text-5xl">{{ train_game.0 }}{{ train_game.1 }}{{ train_game.2 }}{{ train_game.3 }}</h1>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div id="container" class="overflow-hidden max-h-[500px]">
@@ -136,7 +136,7 @@
 			items2.forEach(item => {
 
 				// IF you change font sizes, this might change. If elements start disappearing, you may need to adjust this
-				ASSUMED_HEIGHT_OF_LONE_TITLE = 68;
+				ASSUMED_HEIGHT_OF_LONE_TITLE = 69;
 				if (item.offsetTop + item.offsetHeight > container.offsetHeight || item.offsetHeight < ASSUMED_HEIGHT_OF_LONE_TITLE) {
 					item.style.display = 'none';
 				}

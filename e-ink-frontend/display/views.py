@@ -166,47 +166,66 @@ def current_weather():
 
 def get_ical():
     ical_url = "webcal://p123-caldav.icloud.com/published/2/MTA0ODgzODA0MTEwNDg4M04dWs7LRR4z1Kr4_jOx8I5II3vFh9GYSbJ22eWggG6gbIuJCQ-LYt-QvpczWO-JE_n35D2wAlks2Lv_4WBmMKI"
+    australian_holidays_url = "https://calendars.icloud.com/holidays/au_en-au.ics/"
     start = datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
-    end = start + timedelta(days=14)
+    end = start + timedelta(days=28)
     my_tz = pytz.timezone("Australia/Sydney")
     es = events(url=ical_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
+    holidays_es = events(url=australian_holidays_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
+    holidays_es = list(filter(lambda k: 'NSW' in str(k.summary) or ("(" not in str(k.summary) and ")" not in str(k.summary)), holidays_es))
+    es = es + holidays_es
 
     events_dict = defaultdict(list)
 
     today = datetime.now(zoneinfo.ZoneInfo("Australia/Sydney")).date()
-    tomorrow = (datetime.now() + timedelta(days=1)).date()
+    tomorrow = (datetime.now(zoneinfo.ZoneInfo("Australia/Sydney")) + timedelta(days=1)).date()
 
     def sort_by_day(e):
         return e.start
 
     es.sort(key=sort_by_day)
 
+    new_week_counter = 1
     for event in es:
         if not event.start:
             continue
 
         event_date = event.start.date()
+        key = event_date
 
+        day_name = str()
         if event_date == today:
-            key = "Today"
+            day_name = "Today"
         elif event_date == tomorrow:
-            key = "Tomorrow"
+            day_name = "Tomorrow"
         else:
-            key = event.start.strftime("%A")
+            day_name = event.start.strftime("%A")
 
-        start_time = event.start.strftime("%H:%M") if event.start else None
-        end_time = event.end.strftime("%H:%M") if event.end else None
+        start_time = event.start.strftime("%-H:%M") if event.start else None
+        end_time = event.end.strftime("%-H:%M") if event.end else None
         all_day = False
 
         if event.start and event.end:
             all_day = (event.end - event.start).total_seconds() / 60 == 1440
 
+        
+        description = str()
+        if "observed in your region" not in str(event.description): 
+            description = event.description
+
+        new_week = False
+        if abs(event.start.date() - today).days / 7 > new_week_counter:
+            new_week_counter = new_week_counter + 1
+            new_week = True
+
         event_data = {
+            "new_week": new_week,
+            "day_of_week": day_name, 
             "summary": event.summary,
             "start_time": start_time,
             "end_time": end_time,
             "all_day": all_day,
-            "description": event.description,
+            "description": description,
             "location": event.location,
             "date": (
                 event.start.strftime("%-d") + get_ordinal(event.start.day)
