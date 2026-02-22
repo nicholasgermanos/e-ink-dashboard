@@ -185,7 +185,7 @@ def get_ical():
 
     es.sort(key=sort_by_day)
 
-    new_week_counter = 1
+    new_week_counter = 0
     for event in es:
         if not event.start:
             continue
@@ -217,9 +217,11 @@ def get_ical():
         if abs(event.start.date() - today).days / 7 > new_week_counter:
             new_week_counter = new_week_counter + 1
             new_week = True
+        elif new_week_counter == 0 and event.start.date() != today:
+            new_week = True
 
         event_data = {
-            "new_week": new_week,
+            "new_week": new_week_counter - 1 if new_week else None,
             "day_of_week": day_name, 
             "summary": event.summary,
             "start_time": start_time,

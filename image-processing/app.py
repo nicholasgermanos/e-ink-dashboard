@@ -11,12 +11,13 @@ from flask import Flask
 from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import fitz
 
 DISPLAY_HEIGHT = 984
 DISPLAY_WIDTH = 1304
 
 MAX_CHUNK_SIZE = DISPLAY_HEIGHT * DISPLAY_WIDTH / 64
-CHROME_SCREENSHOT_SCALE = 3
+CHROME_SCREENSHOT_SCALE = 4
 
 def screenshot():
 
@@ -27,32 +28,47 @@ def screenshot():
     chrome_options.add_argument('--font-render-hinting=none')
     chrome_options.add_argument('--disable-font-subpixel-positioning')
     chrome_options.add_argument('--disable-lcd-text')
-    chrome_options.add_argument("--force-device-scale-factor=3")
-    chrome_options.add_argument("--high-dpi-support=1")
     chrome_options.add_argument("--force-color-profile=srgb")
     chrome_options.add_argument("--disable-gpu")
-
+    chrome_options.add_argument("--run-all-compositor-stages-before-draw")
+    
     driver = webdriver.Chrome(options=chrome_options)
-    driver.set_window_size(DISPLAY_HEIGHT, DISPLAY_WIDTH)
+    driver.set_window_size(DISPLAY_WIDTH, DISPLAY_HEIGHT)
     driver.get("http://127.0.0.1:8000/")
-
-    screenshot = driver.execute_cdp_cmd(
-        "Page.captureScreenshot",
+    time.sleep(2)
+    
+    # generate pdf from webpage
+    pdf_data = driver.execute_cdp_cmd(
+        "Page.printToPDF",
         {
-            "captureBeyondViewport": True,
-            "fromSurface": True,
-            "format": "png",
-            "optimizeForSpeed": False,
+            "printBackground": True,
+            "paperWidth": DISPLAY_WIDTH / 96,
+            "paperHeight": DISPLAY_HEIGHT / 96,
+            "marginTop": 0,
+            "marginBottom": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+            "scale": 1,
         },
     )
+    driver.quit()
 
-    time.sleep(2)
+    # convert pdf to bytes
+    pdf_bytes = base64.b64decode(pdf_data["data"])
+    with open("page.pdf", "wb") as f:
+        f.write(pdf_bytes)
 
-    img_data = base64.b64decode(screenshot["data"])
+    # convert bytes to png
+    doc = fitz.open("page.pdf")
+    page = doc[0]
+    zoom = DISPLAY_WIDTH / page.rect.width
+    mat = fitz.Matrix(zoom, zoom)
+    # disables antialiasing
+    pix = page.get_pixmap(matrix=mat, colorspace=fitz.csRGB)
+    img_data = pix.tobytes("png")
     img = Image.open(BytesIO(img_data))
-    img = img.resize((img.width // CHROME_SCREENSHOT_SCALE, img.height //  CHROME_SCREENSHOT_SCALE), Image.NEAREST)
-
     img.save("screenshot.png")
+    doc.close()
 
     driver.quit()
 
@@ -62,15 +78,30 @@ def convert_greyscale():
     out = Image.new("I", img.size, 0xFFFFFF)
 
     width, height = img.size
+    
+    LENIENT_THRESH = 110
+    STRICT_THRESH = 90
 
     for x in range(width):
         for y in range(height):
             r, g, b = img.getpixel((x, y))
-            if r == b == g and r < 195:
-                out.putpixel((x, y), 0)
+            if r == b == g:
+                if r < STRICT_THRESH:
+                    out.putpixel((x, y), 0)
+                elif r < LENIENT_THRESH:
+                    top_r, top_g, top_b = img.getpixel((x, y - 1))
+                    bottom_r, bottom_g, bottom_b = img.getpixel((x, y + 1))
+                    left_r, left_g, left_b = img.getpixel((x - 1, y))
+                    right_r, right_g, right_b = img.getpixel((x + 1, y))
+                    
+                    # check top and bottom
+                    if top_r == top_g == top_b and bottom_r == bottom_g == bottom_b and top_r >= r and bottom_r >= r:
+                        out.putpixel((x, y), 0)
+                    elif left_r == left_g == left_b and right_r == right_g == right_b and left_r >= r and right_r >= r:
+                        out.putpixel((x, y), 0)
+
 
     out.save("xscale.png")
-    # subprocess.run(["magick", "red.jpg", "-remap", "palette.gif", "dithered.png"])
 
 
 def convert_redscale():
@@ -82,7 +113,7 @@ def convert_redscale():
     for x in range(width):
         for y in range(height):
             r, g, b = img.getpixel((x, y))
-            if r > 200 and g < 230 and b < 230 and not (r == b == g):
+            if r > 190 and g < 100 and b < 100 and not (r == b == g):
                 out.putpixel((x, y), 0)
 
     out.save("xscale.png")

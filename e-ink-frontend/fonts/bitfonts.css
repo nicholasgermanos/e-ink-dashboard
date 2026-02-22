@@ -58,3 +58,19 @@
 	-webkit-font-smoothing: none;
 	text-rendering: geometricPrecision;
 }
+
+@font-face {
+	font-family: 'mustica';
+	src: url('../../static/fonts/mustica/Mustica.otf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
+}
+
+@font-face {
+	font-family: 'renogare';
+	src: url('../../static/fonts/Chunkfive.ttf');
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	text-rendering: geometricPrecision;
+}
