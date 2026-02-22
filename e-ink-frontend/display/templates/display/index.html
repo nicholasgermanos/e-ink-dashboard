@@ -32,7 +32,7 @@
 												<span class="text-base">{{ day_events.0.date }}</span>
                                             </h2>
 											{% if day_events.0.new_week >= 0 %}
-											<p class="text-base align-self-end justify-self-start">{% if day_events.0.new_week == 0 %}this{% else %} in {{day_events.0.new_week}}{% endif %} week{% if day_events.0.new_week > 1%}s{% endif %}</p>
+											<p class="text-base align-self-end justify-self-start">{% if day_events.0.new_week == 0 %}this{% elif day_events.0.new_week == 1 %}next{% else %} in {{day_events.0.new_week}}{% endif %} week{% if day_events.0.new_week > 1%}s{% endif %}</p>
 											{% endif %}
 										</div>
                                         {% endif %}
