@@ -27,7 +27,7 @@
                                         {% if day_events.0.day_of_week != "Today" %}
 										<div class="flex justify-between items-start mb-3">
 
-											<h2 class="text-2xl{% if day_events.0.new_week == 0 %} pt-3{% endif %}">
+											<h2 class="text-2xl{% if day_events.0.new_week >= 0 %} pt-3{% endif %}">
 												<span class="">{{ day_events.0.day_of_week }}</span>
 												<span class="text-base">{{ day_events.0.date }}</span>
                                             </h2>

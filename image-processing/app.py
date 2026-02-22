@@ -63,7 +63,6 @@ def screenshot():
     page = doc[0]
     zoom = DISPLAY_WIDTH / page.rect.width
     mat = fitz.Matrix(zoom, zoom)
-    # disables antialiasing
     pix = page.get_pixmap(matrix=mat, colorspace=fitz.csRGB)
     img_data = pix.tobytes("png")
     img = Image.open(BytesIO(img_data))
@@ -79,26 +78,14 @@ def convert_greyscale():
 
     width, height = img.size
     
-    LENIENT_THRESH = 110
-    STRICT_THRESH = 90
+    THRESH = 100
 
     for x in range(width):
         for y in range(height):
             r, g, b = img.getpixel((x, y))
             if r == b == g:
-                if r < STRICT_THRESH:
+                if r < THRESH:
                     out.putpixel((x, y), 0)
-                elif r < LENIENT_THRESH:
-                    top_r, top_g, top_b = img.getpixel((x, y - 1))
-                    bottom_r, bottom_g, bottom_b = img.getpixel((x, y + 1))
-                    left_r, left_g, left_b = img.getpixel((x - 1, y))
-                    right_r, right_g, right_b = img.getpixel((x + 1, y))
-                    
-                    # check top and bottom
-                    if top_r == top_g == top_b and bottom_r == bottom_g == bottom_b and top_r >= r and bottom_r >= r:
-                        out.putpixel((x, y), 0)
-                    elif left_r == left_g == left_b and right_r == right_g == right_b and left_r >= r and right_r >= r:
-                        out.putpixel((x, y), 0)
 
 
     out.save("xscale.png")
