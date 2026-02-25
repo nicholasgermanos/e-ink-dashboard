@@ -215,7 +215,8 @@ def get_ical():
 
         new_week = False
         if abs(event.start.date() - today).days / 7 > new_week_counter:
-            new_week_counter = new_week_counter + 1
+            while abs(event.start.date() - today).days / 7 > new_week_counter:
+                new_week_counter = new_week_counter + 1
             new_week = True
         elif new_week_counter == 0 and event.start.date() != today:
             new_week = True
