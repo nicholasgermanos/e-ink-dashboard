@@ -9,5 +9,6 @@ for i in range(NUM_ROUTES):
     file.write("\tcontent = file.read()\n")
     file.write("\tstart_index = MAX_CHUNK_SIZE * " + str(i) + "\n")
     file.write("\tend_index = start_index + MAX_CHUNK_SIZE\n")
+    file.write("\tgc.collect()\n")
     file.write("\treturn content[int(start_index):int(end_index)]\n")
     file.write("\n")
