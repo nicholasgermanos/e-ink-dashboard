@@ -152,12 +152,14 @@ def generatered():
     gc.collect()
     return str(convert_binary())
 
+
 @app.route("/0")
 def fetch_0():
 	with open("output.txt", "r") as file:
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 0
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/1")
@@ -166,6 +168,7 @@ def fetch_1():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 1
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/2")
@@ -174,6 +177,7 @@ def fetch_2():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 2
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/3")
@@ -182,6 +186,7 @@ def fetch_3():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 3
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/4")
@@ -190,6 +195,7 @@ def fetch_4():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 4
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/5")
@@ -198,6 +204,7 @@ def fetch_5():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 5
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/6")
@@ -206,6 +213,7 @@ def fetch_6():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 6
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/7")
@@ -214,6 +222,7 @@ def fetch_7():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 7
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/8")
@@ -222,6 +231,7 @@ def fetch_8():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 8
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/9")
@@ -230,6 +240,7 @@ def fetch_9():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 9
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/10")
@@ -238,6 +249,7 @@ def fetch_10():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 10
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/11")
@@ -246,6 +258,7 @@ def fetch_11():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 11
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/12")
@@ -254,6 +267,7 @@ def fetch_12():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 12
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/13")
@@ -262,6 +276,7 @@ def fetch_13():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 13
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/14")
@@ -270,6 +285,7 @@ def fetch_14():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 14
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/15")
@@ -278,6 +294,7 @@ def fetch_15():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 15
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/16")
@@ -286,6 +303,7 @@ def fetch_16():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 16
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/17")
@@ -294,6 +312,7 @@ def fetch_17():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 17
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/18")
@@ -302,6 +321,7 @@ def fetch_18():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 18
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/19")
@@ -310,6 +330,7 @@ def fetch_19():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 19
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/20")
@@ -318,6 +339,7 @@ def fetch_20():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 20
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/21")
@@ -326,6 +348,7 @@ def fetch_21():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 21
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/22")
@@ -334,6 +357,7 @@ def fetch_22():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 22
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/23")
@@ -342,6 +366,7 @@ def fetch_23():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 23
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/24")
@@ -350,6 +375,7 @@ def fetch_24():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 24
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/25")
@@ -358,6 +384,7 @@ def fetch_25():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 25
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/26")
@@ -366,6 +393,7 @@ def fetch_26():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 26
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/27")
@@ -374,6 +402,7 @@ def fetch_27():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 27
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/28")
@@ -382,6 +411,7 @@ def fetch_28():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 28
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/29")
@@ -390,6 +420,7 @@ def fetch_29():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 29
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/30")
@@ -398,6 +429,7 @@ def fetch_30():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 30
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/31")
@@ -406,6 +438,7 @@ def fetch_31():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 31
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/32")
@@ -414,6 +447,7 @@ def fetch_32():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 32
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/33")
@@ -422,6 +456,7 @@ def fetch_33():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 33
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/34")
@@ -430,6 +465,7 @@ def fetch_34():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 34
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/35")
@@ -438,6 +474,7 @@ def fetch_35():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 35
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/36")
@@ -446,6 +483,7 @@ def fetch_36():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 36
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/37")
@@ -454,6 +492,7 @@ def fetch_37():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 37
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/38")
@@ -462,6 +501,7 @@ def fetch_38():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 38
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/39")
@@ -470,6 +510,7 @@ def fetch_39():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 39
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/40")
@@ -478,6 +519,7 @@ def fetch_40():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 40
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/41")
@@ -486,6 +528,7 @@ def fetch_41():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 41
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/42")
@@ -494,6 +537,7 @@ def fetch_42():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 42
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/43")
@@ -502,6 +546,7 @@ def fetch_43():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 43
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/44")
@@ -510,6 +555,7 @@ def fetch_44():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 44
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/45")
@@ -518,6 +564,7 @@ def fetch_45():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 45
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/46")
@@ -526,6 +573,7 @@ def fetch_46():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 46
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/47")
@@ -534,6 +582,7 @@ def fetch_47():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 47
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/48")
@@ -542,6 +591,7 @@ def fetch_48():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 48
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/49")
@@ -550,6 +600,7 @@ def fetch_49():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 49
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/50")
@@ -558,6 +609,7 @@ def fetch_50():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 50
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/51")
@@ -566,6 +618,7 @@ def fetch_51():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 51
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/52")
@@ -574,6 +627,7 @@ def fetch_52():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 52
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/53")
@@ -582,6 +636,7 @@ def fetch_53():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 53
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/54")
@@ -590,6 +645,7 @@ def fetch_54():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 54
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/55")
@@ -598,6 +654,7 @@ def fetch_55():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 55
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/56")
@@ -606,6 +663,7 @@ def fetch_56():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 56
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/57")
@@ -614,6 +672,7 @@ def fetch_57():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 57
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/58")
@@ -622,6 +681,7 @@ def fetch_58():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 58
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/59")
@@ -630,6 +690,7 @@ def fetch_59():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 59
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/60")
@@ -638,6 +699,7 @@ def fetch_60():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 60
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/61")
@@ -646,6 +708,7 @@ def fetch_61():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 61
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/62")
@@ -654,6 +717,7 @@ def fetch_62():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 62
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
 
 @app.route("/63")
@@ -662,5 +726,7 @@ def fetch_63():
 		content = file.read()
 		start_index = MAX_CHUNK_SIZE * 63
 		end_index = start_index + MAX_CHUNK_SIZE
+		gc.collect()
 		return content[int(start_index):int(end_index)]
+
 
