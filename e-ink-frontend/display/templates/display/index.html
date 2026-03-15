@@ -134,7 +134,7 @@
 			const fun = document.getElementById('train-game');
 
 			items1.forEach(item => {
-				if (item.offsetTop + item.offsetHeight > container.offsetHeight) {
+				if (item.offsetTop + item.offsetHeight > container.offsetHeight - 50) {
 					item.style.display = 'none';
 				}
 			});
@@ -142,13 +142,13 @@
 			items2.forEach(item => {
 
 				// IF you change font sizes, this might change. If elements start disappearing, you may need to adjust this
-				ASSUMED_HEIGHT_OF_LONE_TITLE = 79;
+				ASSUMED_HEIGHT_OF_LONE_TITLE = 85;
 				if (item.offsetTop + item.offsetHeight > container.offsetHeight || item.offsetHeight < ASSUMED_HEIGHT_OF_LONE_TITLE) {
 					item.style.display = 'none';
 				}
 			});
 
-			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight) {
+			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight - 10) {
 				fun.style.display = 'none';
 			}
         </script>
