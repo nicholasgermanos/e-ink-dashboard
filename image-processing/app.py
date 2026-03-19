@@ -3,8 +3,10 @@
 # Retrieved 2026-01-01, License - CC BY-SA 4.0
 
 import base64
+import datetime
 import gc
 import time
+import zoneinfo
 from io import BytesIO
 
 import cv2
@@ -137,6 +139,12 @@ def convert_binary():
 
 app = Flask(__name__)
 
+@app.route("/shouldupdatescreen")
+def should_update_screen():
+    now = datetime.datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
+    if now.hour == 3:
+        return "true"
+    return "false"
 
 @app.route("/generate")
 def generate():
