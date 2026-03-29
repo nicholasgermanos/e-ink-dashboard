@@ -37,9 +37,9 @@
 										</div>
                                         {% endif %}
                                         {% if day_events %}
-                                            <div class="space-y-3 cutoff-contestant-1">
+                                            <div class="space-y-3">
                                                 {% for event in day_events %}
-                                                    <div class="border-l-4 border-[#FF0000] pl-3 py-2">
+                                                    <div class="cutoff-contestant-1 border-l-4 border-[#FF0000] pl-3 py-2">
                                                         <div class="text-xl">{{ event.summary }}</div>
                                                         {% if event.all_day %}
                                                             <div class="text-base">All day</div>

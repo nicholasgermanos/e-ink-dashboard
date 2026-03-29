@@ -206,7 +206,8 @@ def get_ical():
         all_day = False
 
         if event.start and event.end:
-            all_day = (event.end - event.start).total_seconds() / 60 == 1440
+            event_seconds = (event.end - event.start).total_seconds()
+            all_day = event_seconds / 60 == 1440 or event_seconds == 0
 
         
         description = str()
@@ -214,12 +215,13 @@ def get_ical():
             description = event.description
 
         new_week = False
-        if abs(event.start.date() - today).days / 7 > new_week_counter:
-            while abs(event.start.date() - today).days / 7 > new_week_counter:
+        if event.start.date() - today != timedelta(0) and abs(event.start.date() - today + timedelta(days=1)).days / 7 > new_week_counter:
+            while abs(event.start.date() - today + timedelta(days=1)).days / 7 > new_week_counter:
                 new_week_counter = new_week_counter + 1
             new_week = True
         elif new_week_counter == 0 and event.start.date() != today:
             new_week = True
+        print(new_week_counter)
 
         event_data = {
             "new_week": new_week_counter - 1 if new_week else None,
