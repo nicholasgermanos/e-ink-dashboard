@@ -173,6 +173,15 @@ def get_ical():
     es = events(url=ical_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
     holidays_es = events(url=australian_holidays_url, start=start, end=end, fix_apple=True, tzinfo=my_tz)
     holidays_es = list(filter(lambda k: 'NSW' in str(k.summary) or ("(" not in str(k.summary) and ")" not in str(k.summary)), holidays_es))
+
+    def strip_brackets( holiday ):
+        if "(" not in holiday.summary or ")" not in holiday.summary:
+            return 
+        holiday.summary = holiday.summary[0:holiday.summary.index("(")]
+        
+    for holiday in holidays_es:
+        strip_brackets(holiday)
+
     es = es + holidays_es
 
     events_dict = defaultdict(list)
