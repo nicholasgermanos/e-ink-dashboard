@@ -220,7 +220,7 @@ def get_ical():
 
         
         description = str()
-        if "observed in your region" not in str(event.description): 
+        if "observed in your region" not in str(event.description) and len(str(event.description)) < 100: 
             description = event.description
 
         new_week = False
@@ -230,7 +230,10 @@ def get_ical():
             new_week = True
         elif new_week_counter == 0 and event.start.date() != today:
             new_week = True
-        print(new_week_counter)
+
+        location = None
+        if event.location:
+            location = str(event.location).replace(", Australia", "")
 
         event_data = {
             "new_week": new_week_counter - 1 if new_week else None,
@@ -240,7 +243,7 @@ def get_ical():
             "end_time": end_time,
             "all_day": all_day,
             "description": description,
-            "location": event.location,
+            "location": location,
             "date": (
                 event.start.strftime("%-d") + get_ordinal(event.start.day)
                 if event.start
