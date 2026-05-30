@@ -139,6 +139,11 @@ def convert_binary():
 
 app = Flask(__name__)
 
+@app.route("/gethour")
+def get_hour():
+    now = datetime.datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
+    return str(now.hour)
+
 @app.route("/shouldupdatescreen")
 def should_update_screen():
     now = datetime.datetime.now(zoneinfo.ZoneInfo("Australia/Sydney"))
