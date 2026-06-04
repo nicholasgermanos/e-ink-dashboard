@@ -6,18 +6,16 @@ from collections import defaultdict
 from datetime import date, datetime, timedelta
 
 import pytz
-import requests
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 from django.shortcuts import render
 from icalevents.icalevents import events
 
 
 def get_word_of_the_day():
-    response = requests.get("https://www.merriam-webster.com/word-of-the-day/")
-    # response = requests.get(
-    #     "https://www.merriam-webster.com/word-of-the-day/vendetta-2026-01-16"
-    # )
-    soup = BeautifulSoup(response.text)
+    response = requests.get("https://www.merriam-webster.com/word-of-the-day/", impersonate="chrome")
+    soup = BeautifulSoup(response.text, features="lxml")
+    print(soup)
     description_div = soup.find_all("div", class_="wod-definition-container")
     word_container = soup.find_all("h2", class_="word-header-txt")
     breakdown = {}
