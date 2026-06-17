@@ -25,16 +25,25 @@
                                 {% for key, day_events in events.items %}
                                     <div class="cutoff-contestant-2 bg-white pb-5 {% if day_events.0.new_week >= 0 %}border-t-3 border-solid border-black-500{% endif %}">
                                         {% if day_events.0.day_of_week != "Today" %}
-										<div class="flex justify-between items-start mb-3">
-
-											<h2 class="text-2xl{% if day_events.0.new_week >= 0 %} pt-3{% endif %}">
-												<span class="">{{ day_events.0.day_of_week }}</span>
-												<span class="text-base">{{ day_events.0.date }}</span>
-                                            </h2>
-											{% if day_events.0.new_week >= 0 %}
-											<p class="text-base align-self-end justify-self-start">{% if day_events.0.new_week == 0 %}this{% elif day_events.0.new_week == 1 %}next{% else %} in {{day_events.0.new_week}}{% endif %} week{% if day_events.0.new_week > 1%}s{% endif %}</p>
-											{% endif %}
-										</div>
+                                            <div class="flex justify-between items-start mb-3">
+                                                <h2 class="text-2xl{% if day_events.0.new_week >= 0 %} pt-3{% endif %}">
+                                                    <span class="">{{ day_events.0.day_of_week }}</span>
+                                                    <span class="text-base">{{ day_events.0.date }}</span>
+                                                </h2>
+                                                {% if day_events.0.new_week >= 0 %}
+                                                    <p class="text-base align-self-end justify-self-start">
+                                                        {% if day_events.0.new_week == 0 %}
+                                                            this
+                                                        {% elif day_events.0.new_week == 1 %}
+                                                            next
+                                                        {% else %}
+                                                            in {{ day_events.0.new_week }}
+                                                        {% endif %}
+                                                        week
+                                                        {% if day_events.0.new_week > 1 %}s{% endif %}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
                                         {% endif %}
                                         {% if day_events %}
                                             <div class="space-y-3">
@@ -74,7 +83,8 @@
                                 </p>
                                 {% for period in weather.today_periods %}
                                     <div class="daily-weather mb-6 flex flex-row">
-                                        <img class="weather-icon" src="/static/weather_icons/{{ period.icon_src }}" />
+                                        <img class="weather-icon"
+                                             src="/static/weather_icons/{{ period.icon_src }}" />
                                         <div class="ml-2 leading-[1.2]">
                                             <h1 class="text-2xl leading-[1.2]">{{ period.name }}</h1>
                                             <span class="text-xl leading-[1.2] {% if period.temp_avg > 33 %}text-[#FF0000]{% endif %}">{{ period.temp_avg }}°</span>
@@ -91,9 +101,7 @@
                                             <div class="ml-2 text-xl">
                                                 <h1 class="text-2xl leading-[1.2]">{{ day.name }}</h1>
                                                 <span class="leading-[1.2]">{{ day.min_temp }}° -</span> <span class="leading-[1.2] {% if day.max_temp > 33 %}text-[#FF0000]{% endif %}">{{ day.max_temp }}°</span><span class="ml-3 mr-1">uv</span><span class="leading-[1.2] {% if day.max_uv > 7 %}text-[#FF0000]{% endif %}">{{ day.max_uv }}</span>
-                                                <p class="text-base leading-[1.2]">
-                                                    {{ day.condition }}
-                                                </p>
+                                                <p class="text-base leading-[1.2]">{{ day.condition }}</p>
                                                 <p class="text-base leading-[1.2]">{{ day.rain_chance }}% rain</p>
                                             </div>
                                         </div>
@@ -109,9 +117,9 @@
                         <div class="mb-6">
                             <h1 class="text-2xl ">Word of the Day</h1>
                             <h1 class="text-5xl">{{ word_of_the_day.word }}</h1>
+                            <p>{{ word_of_the_day.pronunciation }} • {{ word_of_the_day.word_type }}</p>
                         </div>
-                        <p class="mb-6">{{ word_of_the_day.description }}</p>
-                        <p class="mb-2">"{{ word_of_the_day.quote }}"</p>
+                        <p class="mb-2">{{ word_of_the_day.definition }}</p>
                     </div>
                 </div>
                 {% if train_game %}
@@ -148,7 +156,7 @@
 				}
 			});
 
-			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight - 30) {
+			if (fun.offsetTop + fun.offsetHeight > container.offsetHeight - 15) {
 				fun.style.display = 'none';
 			}
         </script>

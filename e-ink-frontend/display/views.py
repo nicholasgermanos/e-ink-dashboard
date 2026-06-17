@@ -1,37 +1,47 @@
 import datetime
+import json
 import math
+import os
 import random
 import zoneinfo
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
 import pytz
+import requests
 from bs4 import BeautifulSoup
-from curl_cffi import requests
+from django.conf import settings
 from django.shortcuts import render
 from icalevents.icalevents import events
 
 
 def get_word_of_the_day():
-    response = requests.get("https://www.merriam-webster.com/word-of-the-day/", impersonate="chrome")
-    soup = BeautifulSoup(response.text, features="lxml")
-    print(soup)
-    description_div = soup.find_all("div", class_="wod-definition-container")
-    word_container = soup.find_all("h2", class_="word-header-txt")
-    breakdown = {}
-    breakdown["word"] = word_container[0].get_text()
+    
+    word_list = open(os.path.join(settings.ASSETS_DIR, 'words_of_day.txt'), 'r')
+    lines = word_list.readlines()
+    word_list.close()
 
-    for div in description_div[0].findChildren():
-        print(div)
-        if div.name != "p":
-            continue
-        text = div.get_text()
-        if "// " in text:
-            breakdown["quote"] = text.replace("// ", "")
-        elif "See the entry >" in text:
+    word = 'happy'
+    for index, line in enumerate(lines):
+        if not line.startswith('used_'):
+            word = line
+            lines[index] = 'used_' + line
             break
-        elif "What It Means" not in text:
-            breakdown["description"] = text
+
+    word_list = open(os.path.join(settings.ASSETS_DIR, 'words_of_day.txt'), 'w')
+    word_list.writelines(lines)
+    word_list.close()
+
+    response = requests.get("https://dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=aea024c2-e1ba-49ad-8f57-5a3c1d9a872a")
+
+    details = response.json()[0]
+    breakdown = {}
+    breakdown["word"] = details.get("meta").get("id").split(':', 1)[0]
+    breakdown["word_type"] = details.get("fl")
+    breakdown["pronunciation"] = details.get("hwi").get("hw")
+    breakdown["definition"] = details.get("shortdef")[0]
+
+    print(breakdown)
 
     return breakdown
 

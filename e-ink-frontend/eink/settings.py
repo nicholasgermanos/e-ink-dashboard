@@ -124,5 +124,7 @@ STATIC_ROOT = PROJECT_ROOT / 'static'
 
 STATICFILES_DIRS = [PROJECT_ROOT / 'assets']
 
+ASSETS_DIR = PROJECT_ROOT / 'assets'
+
 TAILWIND_CLI_DIST_CSS = "css/output.css"
 TAILWIND_CLI_SRC_CSS = "input.css"
